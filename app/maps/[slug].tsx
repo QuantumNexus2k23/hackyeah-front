@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { View } from "react-native";
+import { FC, useReducer, useState } from "react";
+import { Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapWrapper from "../../components/MapWrapper/MapWrapper";
 import { Coord } from "../../stores/mapData/types";
@@ -39,8 +39,20 @@ const markers: Array<{ coordinate: Coord }> = [
   },
 ];
 
+const PRIMARY_MARKER_COLOR = "#7E484A";
+
 const Maps: FC = () => {
-    const coordinates = markers.map(({ coordinate }) => coordinate);
+  const [visitedSteps, addVisitedStep] = useReducer(
+    (visited: Array<number>, step: number) => [...visited, step],
+    []
+  );
+
+  const [nextStep, setNextStep] = useState<number>(0);
+  const coordinates = markers.map(({ coordinate }) => coordinate);
+
+  const isVisited = (index: number) => visitedSteps.includes(index);
+  const isVisitedOrNext = (index: number) =>
+    isVisited(index) || index === nextStep;
 
   return (
     <View style={{ flex: 1 }}>
