@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4.5.1",
     "@types/react": "^18.2.23",
     "axios": "^1.5.1",
     "eslint": "^8.50.0",
