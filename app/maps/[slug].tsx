@@ -28,13 +28,12 @@ const Maps: FC = () => {
   const isVisitedOrNext = (index: number) =>
     isVisited(index) || index === nextStep;
 
-  console.log(route?.route_points[nextStep].short_description);
-
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <MapWrapper
         title={route?.route_points[nextStep].name}
         description={route?.route_points[nextStep].short_description}
+        
         pointNumber={nextStep + 1}
       >
         <MapView

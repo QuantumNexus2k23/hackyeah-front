@@ -40,6 +40,11 @@ export type RouteDataStore = {
 
 export type CitiesType = { id: number; name: string };
 
+export type Hero = {
+  image: string;
+  name: string;
+};
+
 export type TrackType = {
   city: number;
   id: number;
@@ -49,8 +54,5 @@ export type TrackType = {
   starting_point_title: string;
   duration: string;
   route_type: string;
-  hero: {
-    image: string;
-    name: string;
-  };
+  hero: Hero;
 };
