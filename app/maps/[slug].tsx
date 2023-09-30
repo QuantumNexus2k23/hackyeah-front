@@ -36,7 +36,7 @@ const Maps: FC = () => {
         pointNumber={nextStep + 1}
       >
         <MapView
-          style={{ width: "100%", height: "70%" }}
+          style={{ width: "100%", height: "75%" }}
           region={getRegionFromCoordinates(coordinates)}
           userInterfaceStyle="light"
         >
