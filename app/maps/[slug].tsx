@@ -2,43 +2,8 @@ import { FC, useEffect, useReducer, useState } from "react";
 import { Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapWrapper from "../../components/MapWrapper/MapWrapper";
-import { Coord } from "../../stores/types";
 import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
-
-// Mock data
-const markers: Array<{ coordinate: Coord }> = [
-  {
-    coordinate: {
-      latitude: 50.06,
-      longitude: 19.94,
-    },
-  },
-  {
-    coordinate: {
-      latitude: 50.073,
-      longitude: 19.9422,
-    },
-  },
-  {
-    coordinate: {
-      latitude: 50.01,
-      longitude: 19.93,
-    },
-  },
-  {
-    coordinate: {
-      latitude: 50.04,
-      longitude: 19.97,
-    },
-  },
-  {
-    coordinate: {
-      latitude: 50.062,
-      longitude: 19.94333,
-    },
-  },
-];
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
@@ -61,9 +26,15 @@ const Maps: FC = () => {
   const isVisitedOrNext = (index: number) =>
     isVisited(index) || index === nextStep;
 
+  console.log(route?.route_points[nextStep].short_description);
+
   return (
     <View style={{ flex: 1 }}>
-      <MapWrapper>
+      <MapWrapper
+        title={route?.route_points[nextStep].name}
+        description={route?.route_points[nextStep].short_description}
+        pointNumber={nextStep + 1}
+      >
         <MapView
           style={{ width: "100%", height: "70%" }}
           region={getRegionFromCoordinates(coordinates)}
