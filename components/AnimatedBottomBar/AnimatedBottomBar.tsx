@@ -40,13 +40,19 @@ const AnimatedBottomBar = ({
 
 const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    bottom: 0,
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
     width: "100%",
-    height: "35%",
-    padding: 10,
+    backgroundColor: "white",
+    paddingHorizontal: 16,
+    paddingTop: 24,
+    paddingBottom: 16,
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
   },
   row: {
     flexDirection: "row",
