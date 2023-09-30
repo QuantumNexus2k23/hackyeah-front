@@ -4,10 +4,12 @@ import MapView, { Marker } from "react-native-maps";
 import MapWrapper from "../../components/MapWrapper/MapWrapper";
 import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
 const Maps: FC = () => {
+  const insets = useSafeAreaInsets();
   const [visitedSteps, addVisitedStep] = useReducer(
     (visited: Array<number>, step: number) => [...visited, step],
     []
@@ -29,7 +31,7 @@ const Maps: FC = () => {
   console.log(route?.route_points[nextStep].short_description);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <MapWrapper
         title={route?.route_points[nextStep].name}
         description={route?.route_points[nextStep].short_description}
