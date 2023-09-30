@@ -8,6 +8,17 @@
       "expo-router"
     ],
     "name": "hackyeah-front",
-    "slug": "hackyeah-front"
+    "slug": "hackyeah-front",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "bfc7e615-90cd-458d-b4da-0f652baf546f"
+      }
+    },
+    "android": {
+      "package": "com.paneuropa.guide"
+    }
   }
 }

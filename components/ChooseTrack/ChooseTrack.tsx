@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { TouchableRipple } from "react-native-paper";
 import TrackCard from "./TrackCard";
 import CustomAppbar from "../CustomAppbar/CustomAppbar";
+import { FlatList } from "react-native";
 
 const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
     const handleOnPress = (id: number) => {
@@ -13,15 +14,18 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
     return (
         <>
             <CustomAppbar title="Cracow Routes" />
-            {tracks.map((track, index) => (
-                <TouchableRipple
-                    key={`${track.name}${index}`}
-                    rippleColor="rgba(0, 0, 0, .32)"
-                    onPress={() => handleOnPress(track.id)}
-                >
-                    <TrackCard {...track} />
-                </TouchableRipple>
-            ))}
+            <FlatList
+                data={tracks}
+                renderItem={({ item }) => (
+                    <TouchableRipple
+                        rippleColor="rgba(0, 0, 0, .32)"
+                        onPress={() => handleOnPress(item.id)}
+                    >
+                        <TrackCard {...item} />
+                    </TouchableRipple>
+                )}
+                keyExtractor={(item) => `${item.name}${item.id}`}
+            ></FlatList>
         </>
     );
 };
