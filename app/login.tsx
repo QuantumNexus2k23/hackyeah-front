@@ -18,7 +18,7 @@ export default function SignIn() {
       const data = await API.login(credentials);
       console.log(data);
       setTokens(data);
-      router.replace("/maps");
+      router.replace("/");
     } catch (err) {
       console.log(err);
     }
