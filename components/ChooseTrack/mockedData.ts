@@ -6,8 +6,8 @@ export const mockedTracks = [
     name: "Old town Road",
     details: {
       starting_point: "Wawel",
-      duration: 2,
-      route_type: "Historical route",
+      duration: 2.8,
+      route_type: "Historic route",
     },
     hero: { url: "/static/dragon.png", name: "Aligator" },
   },
@@ -18,8 +18,8 @@ export const mockedTracks = [
     name: "Old town Road",
     details: {
       starting_point: "Wawel",
-      duration: 2,
-      route_type: "Historical route",
+      duration: 2.1,
+      route_type: "Historic route",
     },
     hero: { url: "/static/dragon.png", name: "Aligator" },
   },
@@ -30,8 +30,8 @@ export const mockedTracks = [
     name: "Old town Road",
     details: {
       starting_point: "Wawel",
-      duration: 2,
-      route_type: "Historical route",
+      duration: 2.4,
+      route_type: "Historic route",
     },
     hero: { url: "/static/dragon.png", name: "Aligator" },
   },
@@ -43,7 +43,7 @@ export const mockedTracks = [
     details: {
       starting_point: "Wawel",
       duration: 2,
-      route_type: "Historical route",
+      route_type: "Historic route",
     },
     hero: { url: "/static/dragon.png", name: "Aligator" },
   },
@@ -54,8 +54,8 @@ export const mockedTracks = [
     name: "Old town Road",
     details: {
       starting_point: "Wawel",
-      duration: 2,
-      route_type: "Historical route",
+      duration: 2.3,
+      route_type: "Historic route",
     },
     hero: { url: "/static/dragon.png", name: "Aligator" },
   },

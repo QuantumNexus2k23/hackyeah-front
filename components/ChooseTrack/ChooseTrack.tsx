@@ -2,6 +2,7 @@ import { TrackType } from "./type";
 import { router } from "expo-router";
 import { TouchableRipple } from "react-native-paper";
 import TrackCard from "./TrackCard";
+import { ScrollView } from "react-native";
 
 const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
   const handleOnPress = (id: number) => {
@@ -10,7 +11,7 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
   };
 
   return (
-    <>
+    <ScrollView>
       {tracks.map((track, index) => (
         <TouchableRipple
           key={`${track.name}${index}`}
@@ -20,7 +21,7 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
           <TrackCard {...track} />
         </TouchableRipple>
       ))}
-    </>
+    </ScrollView>
   );
 };
 
