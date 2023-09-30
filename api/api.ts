@@ -5,7 +5,7 @@ import {
   RegisterData,
   TokensData,
 } from "../stores/auth/types";
-import { MapRoute } from "../stores/mapData/types";
+import { MapRoute } from "../stores/types";
 
 class API {
   async login(payload: CredentialsData): Promise<TokensData> {
@@ -36,7 +36,16 @@ class API {
 
   async getRoutes(): Promise<Array<MapRoute>> {
     const { data } = await this.request<Array<MapRoute>>({
-      url: "/routes/",
+      url: `/routes`,
+      method: "GET",
+    });
+
+    return data;
+  }
+
+  async getMapData(id: string): Promise<MapRoute> {
+    const { data } = await this.request<MapRoute>({
+      url: `/routes/${id}`,
       method: "GET",
     });
 

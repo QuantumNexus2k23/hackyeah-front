@@ -1,4 +1,4 @@
-import { Coord } from "../stores/mapData/types";
+import { Coord } from "../stores/types";
 
 const MULTIPLICATOR = 1.5;
 
@@ -7,6 +7,15 @@ const getRegionFromCoordinates = (coordinates: Array<Coord>) => {
   let maxX: number;
   let minY: number;
   let maxY: number;
+
+  if (!coordinates.length) {
+    return {
+      latitude: 50.06,
+      longitude: 19.94,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.1,
+    };
+  }
 
   const [first] = coordinates;
 
