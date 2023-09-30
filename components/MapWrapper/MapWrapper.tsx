@@ -1,6 +1,5 @@
 import React from "react";
 import { View } from "react-native";
-import { Appbar } from "react-native-paper";
 import { router } from "expo-router";
 import AnimatedBottomBar from "../AnimatedBottomBar/AnimatedBottomBar";
 import CustomAppbar from "../CustomAppbar/CustomAppbar";

@@ -1,5 +1,3 @@
-import { router } from "expo-router";
-import { View } from "react-native";
 import { Appbar } from "react-native-paper";
 
 type CustomAppbarProps = {

@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { Appbar, Button, Text } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import CustomAppbar from "../components/CustomAppbar/CustomAppbar";
 
