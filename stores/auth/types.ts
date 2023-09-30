@@ -4,8 +4,8 @@ export type TokensData = {
 };
 
 export type AuthStore = {
-  accessToken: string | null;
-  refreshToken: string | null;
+  access: string | null;
+  refresh: string | null;
   email: string | null;
   loading: boolean;
   setTokens: (tokens: TokensData) => void;

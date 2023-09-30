@@ -1,4 +1,3 @@
-import { Text } from "react-native";
 import { Button as PaperButton } from "react-native-paper";
 import { ButtonProps } from "./types";
 import { FC } from "react";

@@ -11,7 +11,6 @@ import API from "../api";
 export default function SignIn() {
   const setTokens = useAuth((state) => state.setTokens);
   const { control, handleSubmit } = useForm<CredentialsData>();
-  console.log("XD");
 
   const onSubmit = async (credentials: CredentialsData) => {
     try {
@@ -19,7 +18,7 @@ export default function SignIn() {
       const data = await API.login(credentials);
       console.log(data);
       setTokens(data);
-      router.replace("/");
+      router.replace("/maps");
     } catch (err) {
       console.log(err);
     }
