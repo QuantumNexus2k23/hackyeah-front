@@ -2,7 +2,7 @@ import { FC, useEffect, useReducer, useState } from "react";
 import { Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapWrapper from "../../components/MapWrapper/MapWrapper";
-import { Coord } from "../../stores/mapData/types";
+import { Coord } from "../../stores/types";
 import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
 
@@ -48,13 +48,14 @@ const Maps: FC = () => {
     []
   );
 
-  const { routes, fetchRoutes } = useMapData();
+  const { route, fetchMapData } = useMapData();
   useEffect(() => {
-    fetchRoutes();
+    fetchMapData("4");
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
-  const coordinates = markers.map(({ coordinate }) => coordinate);
+  const coordinates =
+    route?.route_points.map(({ coordinate }) => coordinate) ?? [];
 
   const isVisited = (index: number) => visitedSteps.includes(index);
   const isVisitedOrNext = (index: number) =>
@@ -68,7 +69,7 @@ const Maps: FC = () => {
           region={getRegionFromCoordinates(coordinates)}
           userInterfaceStyle="light"
         >
-          {markers.map(({ coordinate }, index) => (
+          {route?.route_points?.map(({ coordinate }, index) => (
             <Marker
               key={index}
               coordinate={coordinate}
@@ -79,8 +80,8 @@ const Maps: FC = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  height: 32,
-                  width: 32,
+                  height: 48,
+                  width: 48,
                   backgroundColor: isVisitedOrNext(index)
                     ? PRIMARY_MARKER_COLOR
                     : "#FFFFFFDD",
@@ -92,7 +93,7 @@ const Maps: FC = () => {
               >
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: 24,
                     color: isVisitedOrNext(index)
                       ? "white"
                       : PRIMARY_MARKER_COLOR,

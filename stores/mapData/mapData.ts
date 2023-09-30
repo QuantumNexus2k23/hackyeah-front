@@ -1,15 +1,14 @@
 import { create } from "zustand";
-import { MapDataStore } from "./types";
+import { RouteDataStore } from "../types";
 import API from "../../api";
 
-export const useMapData = create<MapDataStore>((set) => ({
-  routes: [],
+export const useMapData = create<RouteDataStore>((set) => ({
+  route: null,
 
-  fetchRoutes: async () => {
-    const data = await API.getRoutes();
-    console.log(data);
+  fetchMapData: async (id: string) => {
+    const data = await API.getMapData(id);
     set({
-      routes: data,
+      route: data,
     });
   },
 }));
