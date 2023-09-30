@@ -15,7 +15,7 @@ class API {
     });
   }
 
-  async register(data: RegisterData): Promise<TokensData> {
+  async register(data: CredentialsData): Promise<TokensData> {
     await this.request({
       url: "/accounts/users/",
       method: "POST",
@@ -25,7 +25,7 @@ class API {
     return this.request({
       url: "/accounts/jwt/create/",
       method: "POST",
-      data: { username: data.username, password: data.password },
+      data,
     });
   }
 

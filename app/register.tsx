@@ -21,9 +21,13 @@ export default function Register() {
       console.log("Passwords must be the same!");
       return;
     }
-    const data = await API.register({ username, password, re_password });
-    setTokens(data);
-    router.replace("/");
+    try {
+      const data = await API.register({ username, password });
+      setTokens(data);
+      router.replace("/");
+    } catch (err) {
+      console.log(JSON.stringify(err));
+    }
   };
 
   return (
