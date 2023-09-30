@@ -47,3 +47,8 @@ export type RouteDataStore = {
   route: MapRoute | null;
   fetchMapData: (id: string) => Promise<void>;
 };
+
+export type RouteDetailsDataStore = {
+  routeDetails: MapPoint | null;
+  fetchRouteDetails: (id: string) => Promise<void>;
+};

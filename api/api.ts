@@ -5,7 +5,7 @@ import {
   RegisterData,
   TokensData,
 } from "../stores/auth/types";
-import { MapRoute } from "../stores/types";
+import { MapPoint, MapRoute } from "../stores/types";
 
 class API {
   async login(payload: CredentialsData): Promise<TokensData> {
@@ -46,6 +46,15 @@ class API {
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({
       url: `/routes/${id}`,
+      method: "GET",
+    });
+
+    return data;
+  }
+
+  async getMapPoint(id: string): Promise<MapPoint> {
+    const { data } = await this.request<MapPoint>({
+      url: `/route-points/${id}`,
       method: "GET",
     });
 

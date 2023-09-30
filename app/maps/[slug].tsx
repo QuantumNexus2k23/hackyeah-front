@@ -2,7 +2,7 @@ import { FC, useEffect, useReducer, useState } from "react";
 import { Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapWrapper from "../../components/MapWrapper/MapWrapper";
-import { Coord } from "../../stores/types";
+import { Coord, Paragraph } from "../../stores/types";
 import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
 
@@ -54,6 +54,7 @@ const Maps: FC = () => {
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
+  const [currentId, setCurrentId] = useState<number>(4);
   const coordinates =
     route?.route_points.map(({ coordinate }) => coordinate) ?? [];
 
@@ -63,7 +64,7 @@ const Maps: FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapWrapper>
+      <MapWrapper id={currentId}>
         <MapView
           style={{ width: "100%", height: "70%" }}
           region={getRegionFromCoordinates(coordinates)}
@@ -73,7 +74,10 @@ const Maps: FC = () => {
             <Marker
               key={index}
               coordinate={coordinate}
-              onPress={() => setNextStep(index)}
+              onPress={() => {
+                setCurrentId(route.route_points[index].id);
+                setNextStep(index);
+              }}
             >
               <View
                 style={{

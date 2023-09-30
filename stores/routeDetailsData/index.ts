@@ -1,0 +1,1 @@
+export { useRouteDetailsData } from "./routeDetailsData";
