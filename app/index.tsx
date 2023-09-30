@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../stores/auth";
 import { useCitiesData } from "../stores/citiesData/citiesData";
 import { useEffect } from "react";
+import ChooseCity from "../components/ChooseCity/ChooseCity";
 
 const index = () => {
   const insets = useSafeAreaInsets();
@@ -14,10 +15,6 @@ const index = () => {
   useEffect(() => {
     fetchCities();
   }, []);
-
-  const handleOnPress = (id: number) => {
-    router.push(`/choose-track/${id}`);
-  };
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (loading) {
@@ -38,17 +35,10 @@ const index = () => {
     <View
       style={{
         paddingTop: insets.top,
+        flexDirection: "column",
       }}
     >
-      {cities.map((item, index) => (
-        <Button
-          key={index}
-          mode="contained"
-          onPress={() => handleOnPress(item.id)}
-        >
-          {item.name}
-        </Button>
-      ))}
+      <ChooseCity cities={cities} />
     </View>
   );
 };
