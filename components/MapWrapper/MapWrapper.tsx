@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Appbar } from "react-native-paper";
 import { router } from "expo-router";
 import AnimatedBottomBar from "../AnimatedBottomBar/AnimatedBottomBar";
+import CustomAppbar from "../CustomAppbar/CustomAppbar";
 
 type Props = { children: React.ReactNode };
 
@@ -13,10 +14,10 @@ const MapWrapper = ({ children }: Props) => {
 
     return (
         <View style={{ height: "100%" }}>
-            <Appbar.Header>
-                <Appbar.BackAction onPress={handleGoBack} />
-                <Appbar.Content title={'Trasa "Kraków Stare Miasto"'} />
-            </Appbar.Header>
+            <CustomAppbar
+                title={'Route "Kraków Stare Miasto"'}
+                onGoBack={handleGoBack}
+            />
             {children}
             <AnimatedBottomBar />
         </View>

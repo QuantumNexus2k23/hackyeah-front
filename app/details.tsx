@@ -1,7 +1,8 @@
 import { router } from "expo-router";
-import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Dimensions, StyleSheet, View } from "react-native";
+import { Appbar, Button, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import CustomAppbar from "../components/CustomAppbar/CustomAppbar";
 
 const details = () => {
     const insets = useSafeAreaInsets();
@@ -12,8 +13,11 @@ const details = () => {
 
     return (
         <View>
-            <View style={{ paddingTop: insets.top }}>
-                <Text>Details</Text>
+            <View>
+                <CustomAppbar
+                    title={'Route "Kraków Stare Miasto"'}
+                    onGoBack={handleOnPress}
+                />
             </View>
             <Button mode="contained" onPress={handleOnPress}>
                 Go back
@@ -21,5 +25,14 @@ const details = () => {
         </View>
     );
 };
+
+const screenWidth = Dimensions.get("screen").width;
+
+const styles = StyleSheet.create({
+    image: {
+        width: screenWidth,
+        height: 200,
+    },
+});
 
 export default details;
