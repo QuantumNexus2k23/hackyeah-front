@@ -39,18 +39,18 @@ const markers: Array<{ coordinate: Coord }> = [
 ];
 
 const Maps: FC = () => {
+  const coordinates = markers.map(({ coordinate }) => coordinate);
+
   return (
     <View style={{ flex: 1 }}>
       <MapView
         style={{ width: "100%", height: "100%" }}
-        region={getRegionFromCoordinates(
-          markers.map(({ coordinate }) => coordinate)
-        )}
+        region={getRegionFromCoordinates(coordinates)}
       >
-        {markers.map((marker, index) => (
+        {markers.map(({ coordinate }, index) => (
           <Marker
             key={index}
-            coordinate={marker.coordinate}
+            coordinate={coordinate}
             onPress={() => console.log("Hello")}
           />
         ))}
