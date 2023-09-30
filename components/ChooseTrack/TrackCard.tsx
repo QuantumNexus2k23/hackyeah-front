@@ -20,8 +20,7 @@ const TrackCard = ({
   return (
     <Card
       style={{
-        marginVertical: 10,
-        borderRadius: 0,
+        marginVertical: 30,
         backgroundColor: "#FBF8F8",
         position: "relative",
       }}
