@@ -1,18 +1,21 @@
 import { router } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Hero } from "../../stores/types";
 
 export type AnimatedBottomBarProps = {
   title?: string;
   description?: string;
+  hero?: Hero;
   pointNumber: number;
 };
 
 const AnimatedBottomBar = ({
   title,
   description,
+  hero,
   pointNumber,
 }: AnimatedBottomBarProps) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -72,6 +75,21 @@ const AnimatedBottomBar = ({
           </View>
         </View>
         <View>
+          {hero ? (
+            <Image
+              style={{
+                borderRadius: 0,
+                zIndex: 100,
+                height: 330,
+                width: 330,
+                resizeMode: "contain",
+                position: "absolute",
+                bottom: -11,
+                right: -60,
+              }}
+              source={{ uri: hero.image }}
+            />
+          ) : null}
           <Button
             labelStyle={styles.buttonLabel}
             style={[styles.button, { marginTop: isExpanded ? 0 : 64 }]}
