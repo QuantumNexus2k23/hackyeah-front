@@ -7,36 +7,36 @@ import getRegionFromCoordinates from "../../utils/coordinates";
 
 // Mock data
 const markers: Array<{ coordinate: Coord }> = [
-    {
-        coordinate: {
-            latitude: 50.06,
-            longitude: 19.94,
-        },
+  {
+    coordinate: {
+      latitude: 50.06,
+      longitude: 19.94,
     },
-    {
-        coordinate: {
-            latitude: 50.073,
-            longitude: 19.9422,
-        },
+  },
+  {
+    coordinate: {
+      latitude: 50.073,
+      longitude: 19.9422,
     },
-    {
-        coordinate: {
-            latitude: 50.01,
-            longitude: 20.01,
-        },
+  },
+  {
+    coordinate: {
+      latitude: 50.01,
+      longitude: 19.93,
     },
-    {
-        coordinate: {
-            latitude: 50.04,
-            longitude: 19.97,
-        },
+  },
+  {
+    coordinate: {
+      latitude: 50.04,
+      longitude: 19.97,
     },
-    {
-        coordinate: {
-            latitude: 50.062,
-            longitude: 19.94333,
-        },
+  },
+  {
+    coordinate: {
+      latitude: 50.062,
+      longitude: 19.94333,
     },
+  },
 ];
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
@@ -56,45 +56,49 @@ const Maps: FC = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapView
-        style={{ width: "100%", height: "70%" }}
-        region={getRegionFromCoordinates(coordinates)}
-        userInterfaceStyle="light"
-      >
-        {markers.map(({ coordinate }, index) => (
-          <Marker
-            key={index}
-            coordinate={coordinate}
-            onPress={() => setNextStep(index)}
-          >
-            <View
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: 32,
-                width: 32,
-                backgroundColor: isVisitedOrNext(index)
-                  ? PRIMARY_MARKER_COLOR
-                  : "white",
-                borderRadius: 2137,
-                borderColor: PRIMARY_MARKER_COLOR,
-                borderWidth: 2,
-                opacity: isVisited(index) ? 0.5 : 1,
-              }}
+      <MapWrapper>
+        <MapView
+          style={{ width: "100%", height: "70%" }}
+          region={getRegionFromCoordinates(coordinates)}
+          userInterfaceStyle="light"
+        >
+          {markers.map(({ coordinate }, index) => (
+            <Marker
+              key={index}
+              coordinate={coordinate}
+              onPress={() => setNextStep(index)}
             >
-              <Text
+              <View
                 style={{
-                  fontSize: 20,
-                  color: isVisitedOrNext(index) ? "white" : PRIMARY_MARKER_COLOR,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: 32,
+                  width: 32,
+                  backgroundColor: isVisitedOrNext(index)
+                    ? PRIMARY_MARKER_COLOR
+                    : "#FFFFFFDD",
+                  borderRadius: 2137,
+                  borderColor: PRIMARY_MARKER_COLOR,
+                  borderWidth: 2,
+                  opacity: isVisited(index) ? 0.5 : 1,
                 }}
               >
-                {index + 1}
-              </Text>
-            </View>
-          </Marker>
-        ))}
-      </MapView>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: isVisitedOrNext(index)
+                      ? "white"
+                      : PRIMARY_MARKER_COLOR,
+                  }}
+                >
+                  {index + 1}
+                </Text>
+              </View>
+            </Marker>
+          ))}
+        </MapView>
+      </MapWrapper>
     </View>
   );
 };
