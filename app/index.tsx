@@ -3,13 +3,20 @@ import { ActivityIndicator, View } from "react-native";
 import { Button } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../stores/auth";
+import { useCitiesData } from "../stores/citiesData/citiesData";
+import { useEffect } from "react";
 
 const index = () => {
   const insets = useSafeAreaInsets();
   const { access, loading } = useAuth();
 
-  const handleOnPress = () => {
-    router.push("/choose-track/1");
+  const { cities, fetchCities } = useCitiesData();
+  useEffect(() => {
+    fetchCities();
+  }, []);
+
+  const handleOnPress = (id: number) => {
+    router.push(`/choose-track/${id}`);
   };
 
   // You can keep the splash screen open, or render a loading screen like we do here.
@@ -33,9 +40,15 @@ const index = () => {
         paddingTop: insets.top,
       }}
     >
-      <Button mode="contained" onPress={handleOnPress}>
-        Select Krakow tracks
-      </Button>
+      {cities.map((item, index) => (
+        <Button
+          key={index}
+          mode="contained"
+          onPress={() => handleOnPress(item.id)}
+        >
+          {item.name}
+        </Button>
+      ))}
     </View>
   );
 };

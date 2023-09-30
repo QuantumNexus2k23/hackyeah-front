@@ -1,11 +1,22 @@
-import { TrackType } from "./type";
 import { Card, Text } from "react-native-paper";
 import Place from "./static/place.svg";
 import History from "./static/history.svg";
 import Timelapse from "./static/timelapse.svg";
 import { Image, View } from "react-native";
+import { TrackType } from "../../stores/types";
 
-const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
+const TrackCard = ({
+  name,
+  image,
+  hero,
+  route_type,
+  duration,
+  starting_point_title,
+}: TrackType) => {
+  const time = new Date(
+    new Date().toISOString().split("T")[0] + "T" + duration
+  ).getHours();
+
   return (
     <Card
       style={{
@@ -28,7 +39,7 @@ const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
             style={{ marginLeft: 3, color: "#3B3B3B" }}
             variant="bodyMedium"
           >
-            {details.route_type}
+            {route_type}
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginVertical: 3 }}>
@@ -37,7 +48,7 @@ const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
             style={{ marginLeft: 3, color: "#3B3B3B" }}
             variant="bodyMedium"
           >
-            {Math.round(details.duration * 2) / 2}h
+            {time}h
           </Text>
         </View>
         <View style={{ flexDirection: "row", marginVertical: 3 }}>
@@ -46,7 +57,7 @@ const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
             style={{ marginLeft: 3, color: "#3B3B3B" }}
             variant="bodyMedium"
           >
-            {details.route_type}
+            {starting_point_title}
           </Text>
         </View>
       </Card.Content>
@@ -62,9 +73,9 @@ const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
           right: -60,
           transform: [{ scaleX: -1 }],
         }}
-        source={{ uri: hero.url }}
+        source={{ uri: hero.image }}
       />
-      <Card.Cover style={{ borderRadius: 0 }} source={{ uri: image_url }} />
+      <Card.Cover style={{ borderRadius: 0 }} source={{ uri: image }} />
     </Card>
   );
 };
