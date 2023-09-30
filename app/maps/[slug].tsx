@@ -1,9 +1,10 @@
-import { FC, useReducer, useState } from "react";
+import { FC, useEffect, useReducer, useState } from "react";
 import { Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapWrapper from "../../components/MapWrapper/MapWrapper";
 import { Coord } from "../../stores/mapData/types";
 import getRegionFromCoordinates from "../../utils/coordinates";
+import { useMapData } from "../../stores/mapData";
 
 // Mock data
 const markers: Array<{ coordinate: Coord }> = [
@@ -46,6 +47,11 @@ const Maps: FC = () => {
     (visited: Array<number>, step: number) => [...visited, step],
     []
   );
+
+  const { routes, fetchRoutes } = useMapData();
+  useEffect(() => {
+    fetchRoutes();
+  }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
   const coordinates = markers.map(({ coordinate }) => coordinate);
