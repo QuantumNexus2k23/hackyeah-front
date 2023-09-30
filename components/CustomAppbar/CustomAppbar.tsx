@@ -6,14 +6,11 @@ type CustomAppbarProps = {
     onGoBack: () => void;
 };
 
-const CustomAppbar = (props: CustomAppbarProps) => {
+const CustomAppbar = ({ title, onGoBack }: CustomAppbarProps) => {
     return (
         <Appbar.Header>
-            <Appbar.BackAction onPress={props.onGoBack} />
-            <Appbar.Content
-                title={props.title}
-                titleStyle={styles.titleStyle}
-            />
+            <Appbar.BackAction onPress={onGoBack} />
+            <Appbar.Content title={title} titleStyle={styles.titleStyle} />
         </Appbar.Header>
     );
 };
