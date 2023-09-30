@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import CustomAppbar from "../components/CustomAppbar/CustomAppbar";
+import CustomAppbar from "../../components/CustomAppbar/CustomAppbar";
 
 const details = () => {
     const handleOnPress = () => {

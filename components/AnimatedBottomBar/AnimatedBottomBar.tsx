@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 
 const AnimatedBottomBar = () => {
-    const handleViewDetails = () => {
-        router.push("/details");
+    const handleViewDetails = (id: number) => {
+        router.push(`/details/${id}`);
     };
 
     return (
@@ -21,7 +21,10 @@ const AnimatedBottomBar = () => {
                     </Text>
                 </View>
             </View>
-            <Button style={styles.pointButton} onPress={handleViewDetails}>
+            <Button
+                style={styles.pointButton}
+                onPress={() => handleViewDetails(1)}
+            >
                 <Text style={styles.pointText}>1</Text>
             </Button>
         </View>
