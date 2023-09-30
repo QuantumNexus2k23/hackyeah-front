@@ -12,12 +12,30 @@ export type MapPoint = {
   name: string;
   short_description: string;
   coordinate: Coord;
+  main_img: string;
+  paragraphs: Array<Paragraph>;
 };
 
 export type MapRoute = {
   name: string;
   short_description: string;
   route_points: Array<MapPoint>;
+};
+
+export type WaypointDetails = {
+  main_img: string;
+  hero_story: string;
+  hero_quote: string;
+  paragraphs: Array<Paragraph>;
+};
+
+export type Paragraph = {
+  id: string;
+  order: number;
+  text: string;
+  image: string;
+  image_description: string;
+  route_point: number;
 };
 
 export type RoutesDataStore = {
