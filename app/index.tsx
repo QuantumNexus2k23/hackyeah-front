@@ -7,7 +7,7 @@ const index = () => {
   const insets = useSafeAreaInsets();
 
   const handleOnPress = () => {
-    router.push("/maps/cracow");
+    router.push("/choose-track/1");
   };
 
   return (
@@ -17,7 +17,7 @@ const index = () => {
       }}
     >
       <Button mode="contained" onPress={handleOnPress}>
-        Go to map
+        Select Krakow tracks
       </Button>
     </View>
   );

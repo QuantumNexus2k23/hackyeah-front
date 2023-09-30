@@ -12,7 +12,7 @@ const MapWrapper = ({ children }: Props) => {
     };
 
     return (
-        <View>
+        <View style={{ height: "100%" }}>
             <Appbar.Header>
                 <Appbar.BackAction onPress={handleGoBack} />
                 <Appbar.Content title={'Trasa "Kraków Stare Miasto"'} />

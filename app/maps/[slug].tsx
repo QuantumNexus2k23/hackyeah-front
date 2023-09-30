@@ -57,7 +57,7 @@ const Maps: FC = () => {
   return (
     <View style={{ flex: 1 }}>
       <MapView
-        style={{ width: "100%", height: "65%" }}
+        style={{ width: "100%", height: "70%" }}
         region={getRegionFromCoordinates(coordinates)}
         userInterfaceStyle="light"
       >
