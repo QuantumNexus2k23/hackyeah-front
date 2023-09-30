@@ -1,5 +1,5 @@
 import { TrackType } from "./type";
-import { Button, Card, Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 
 const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
   const cardDetails = Object.keys(details) as Array<keyof TrackType["details"]>;
@@ -9,7 +9,7 @@ const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
       <Card.Content>
         <Text variant="titleLarge">{name}</Text>
         {cardDetails.map((detail) => (
-          <Text variant="bodyMedium">{details[detail]}</Text>
+          <Text key={detail} variant="bodyMedium">{details[detail]}</Text>
         ))}
       </Card.Content>
       <Card.Cover source={{ uri: image_url }} />
