@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { AuthStore, TokensData } from "./types";
 
 export const useAuth = create<AuthStore>((set) => ({
-  accessToken: null,
-  refreshToken: null,
+  access: null,
+  refresh: null,
   email: null,
   loading: false,
 
@@ -12,5 +12,5 @@ export const useAuth = create<AuthStore>((set) => ({
 
   setTokens: (tokens: TokensData) => set({ ...tokens, loading: false }),
 
-  setRefreshToken: (refreshToken: string) => set({ refreshToken }),
+  setRefreshToken: (refresh: string) => set({ refresh }),
 }));
