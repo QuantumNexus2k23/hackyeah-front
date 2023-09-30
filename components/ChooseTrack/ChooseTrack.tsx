@@ -1,8 +1,8 @@
-import { TrackType } from "./type";
 import { router } from "expo-router";
 import { TouchableRipple } from "react-native-paper";
 import TrackCard from "./TrackCard";
 import { FlatList } from "react-native";
+import { TrackType } from "../../stores/types";
 
 const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
   const handleOnPress = (id: number) => {

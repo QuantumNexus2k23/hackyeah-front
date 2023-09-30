@@ -1,11 +1,7 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
-import {
-  CredentialsData,
-  RegisterData,
-  TokensData,
-} from "../stores/auth/types";
-import { MapRoute } from "../stores/types";
+import { CredentialsData, TokensData } from "../stores/auth/types";
+import { CitiesType, MapRoute, TrackType } from "../stores/types";
 
 class API {
   async login(payload: CredentialsData): Promise<TokensData> {
@@ -34,6 +30,15 @@ class API {
     return data;
   }
 
+  async getCities(): Promise<Array<CitiesType>> {
+    const { data } = await this.request<Array<CitiesType>>({
+      url: `/cities`,
+      method: "GET",
+    });
+
+    return data;
+  }
+
   async getRoutes(): Promise<Array<MapRoute>> {
     const { data } = await this.request<Array<MapRoute>>({
       url: `/routes`,
@@ -43,6 +48,14 @@ class API {
     return data;
   }
 
+  async getCityRoutes(id: string): Promise<TrackType[]> {
+    const { data } = await this.request<TrackType[]>({
+      url: `/routes/?city_id=${id}`,
+      method: "GET",
+    });
+
+    return data;
+  }
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({
       url: `/routes/${id}`,

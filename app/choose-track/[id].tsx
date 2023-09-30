@@ -2,12 +2,18 @@ import { View } from "react-native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ChooseTrack from "../../components/ChooseTrack/ChooseTrack";
-import { mockedTracks } from "../../components/ChooseTrack/mockedData";
-import { TrackType } from "../../components/ChooseTrack/type";
+import { useTracksData } from "../../stores/tracksData/tracksData";
+import { useEffect } from "react";
+import { useLocalSearchParams } from "expo-router";
 
 const chooseTrack = () => {
   const insets = useSafeAreaInsets();
-  const tracks: Array<TrackType> = mockedTracks;
+  const { id } = useLocalSearchParams();
+  const { tracks, fetchTracks } = useTracksData();
+  useEffect(() => {
+    if (!id) return;
+    fetchTracks(id.toString());
+  }, []);
 
   return (
     <View
