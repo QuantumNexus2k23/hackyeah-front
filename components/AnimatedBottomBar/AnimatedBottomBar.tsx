@@ -6,6 +6,7 @@ const AnimatedBottomBar = () => {
     const handleViewDetails = () => {
         router.push("/details");
     };
+
     return (
         <View style={styles.container}>
             <View style={styles.waypointNumber}>
