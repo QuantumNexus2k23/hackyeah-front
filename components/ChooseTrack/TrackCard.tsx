@@ -5,6 +5,7 @@ import History from "./static/history.svg";
 import Timelapse from "./static/timelapse.svg";
 import { View } from "react-native";
 
+
 const TrackCard = ({ name, image_url, details, hero }: TrackType) => {
   return (
     <Card
