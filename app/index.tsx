@@ -1,14 +1,26 @@
+import { router } from "expo-router";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const map = () => {
-  const insets = useSafeAreaInsets();
-  return (
-    <View style={{ paddingTop: insets.top }}>
-      <Text>eowoieqfhuefq q9ehfuoqehf qefh0qehfhn map</Text>
-    </View>
-  );
+const index = () => {
+    const insets = useSafeAreaInsets();
+
+    const handleOnPress = () => {
+        router.replace("/map");
+    };
+
+    return (
+        <View
+            style={{
+                paddingTop: insets.top,
+            }}
+        >
+            <Button mode="contained" onPress={handleOnPress}>
+                Go to map
+            </Button>
+        </View>
+    );
 };
 
-export default map;
+export default index;
