@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { View } from "react-native";
+import { FC, useReducer, useState } from "react";
+import { Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { Coord } from "../../stores/mapData/types";
 import getRegionFromCoordinates from "../../utils/coordinates";
@@ -38,21 +38,60 @@ const markers: Array<{ coordinate: Coord }> = [
   },
 ];
 
+const PRIMARY_MARKER_COLOR = "#7E484A";
+
 const Maps: FC = () => {
+  const [visitedSteps, addVisitedStep] = useReducer(
+    (visited: Array<number>, step: number) => [...visited, step],
+    []
+  );
+
+  const [nextStep, setNextStep] = useState<number>(0);
   const coordinates = markers.map(({ coordinate }) => coordinate);
+
+  const isVisited = (index: number) => visitedSteps.includes(index);
+  const isVisitedOrNext = (index: number) =>
+    isVisited(index) || index === nextStep;
 
   return (
     <View style={{ flex: 1 }}>
       <MapView
         style={{ width: "100%", height: "100%" }}
         region={getRegionFromCoordinates(coordinates)}
+        userInterfaceStyle="light"
       >
         {markers.map(({ coordinate }, index) => (
           <Marker
             key={index}
             coordinate={coordinate}
-            onPress={() => console.log("Hello")}
-          />
+            onPress={() => setNextStep(index)}
+          >
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 32,
+                width: 32,
+                backgroundColor: isVisitedOrNext(index)
+                  ? PRIMARY_MARKER_COLOR
+                  : "white",
+                borderRadius: 2137,
+                borderColor: PRIMARY_MARKER_COLOR,
+                borderWidth: 2,
+                opacity: isVisited(index) ? 0.5 : 1,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: isVisitedOrNext(index) ? "white" : PRIMARY_MARKER_COLOR,
+                }}
+              >
+                {index + 1}
+              </Text>
+            </View>
+          </Marker>
         ))}
       </MapView>
     </View>
