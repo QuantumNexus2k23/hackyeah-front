@@ -61,20 +61,21 @@ const TrackCard = ({
           </Text>
         </View>
       </Card.Content>
-      <Image
-        style={{
-          borderRadius: 0,
-          zIndex: 100,
-          height: 330,
-          width: 330,
-          resizeMode: "contain",
-          position: "absolute",
-          bottom: -11,
-          right: -60,
-          transform: [{ scaleX: -1 }],
-        }}
-        source={{ uri: hero.image }}
-      />
+      {hero ? (
+        <Image
+          style={{
+            borderRadius: 0,
+            zIndex: 100,
+            height: 330,
+            width: 330,
+            resizeMode: "contain",
+            position: "absolute",
+            bottom: -11,
+            right: -60,
+          }}
+          source={{ uri: hero.image }}
+        />
+      ) : null}
       <Card.Cover style={{ borderRadius: 0 }} source={{ uri: image }} />
     </Card>
   );
