@@ -12,6 +12,17 @@ export type MapPoint = {
   name: string;
   short_description: string;
   coordinate: Coord;
+  main_img: string;
+  paragraphs: Array<Paragraph>;
+};
+
+export type Paragraph = {
+  id: string;
+  order: number;
+  text: string;
+  image: string;
+  image_description: string;
+  route_point: number;
 };
 
 export type MapRoute = {
@@ -36,6 +47,11 @@ export type TracksDataStore = {
 export type RouteDataStore = {
   route: MapRoute | null;
   fetchMapData: (id: string) => Promise<void>;
+};
+
+export type RouteDetailsDataStore = {
+  routeDetails: MapPoint | null;
+  fetchRouteDetails: (id: string) => Promise<void>;
 };
 
 export type CitiesType = { id: number; name: string };
