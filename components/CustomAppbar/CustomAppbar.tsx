@@ -3,13 +3,13 @@ import { Appbar } from "react-native-paper";
 
 type CustomAppbarProps = {
     title: string;
-    onGoBack?: () => void;
+    onGoBack: () => void;
 };
 
 const CustomAppbar = (props: CustomAppbarProps) => {
     return (
         <Appbar.Header>
-            {props.onGoBack && <Appbar.BackAction onPress={props.onGoBack} />}
+            <Appbar.BackAction onPress={props.onGoBack} />
             <Appbar.Content
                 title={props.title}
                 titleStyle={styles.titleStyle}

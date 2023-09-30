@@ -12,21 +12,18 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
     };
 
     return (
-        <>
-            <CustomAppbar title="Cracow Routes" />
-            <FlatList
-                data={tracks}
-                renderItem={({ item }) => (
-                    <TouchableRipple
-                        rippleColor="rgba(0, 0, 0, .32)"
-                        onPress={() => handleOnPress(item.id)}
-                    >
-                        <TrackCard {...item} />
-                    </TouchableRipple>
-                )}
-                keyExtractor={(item) => `${item.name}${item.id}`}
-            ></FlatList>
-        </>
+        <FlatList
+            data={tracks}
+            renderItem={({ item }) => (
+                <TouchableRipple
+                    rippleColor="rgba(0, 0, 0, .32)"
+                    onPress={() => handleOnPress(item.id)}
+                >
+                    <TrackCard {...item} />
+                </TouchableRipple>
+            )}
+            keyExtractor={(item) => `${item.name}${item.id}`}
+        ></FlatList>
     );
 };
 
