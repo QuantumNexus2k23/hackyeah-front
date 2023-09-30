@@ -4,10 +4,8 @@
     "web": {
       "bundler": "metro"
     },
-    "plugins": [
-      "expo-router"
-    ],
-    "name": "hackyeah-front",
+    "plugins": ["expo-router"],
+    "name": "Paneuropa Guide",
     "slug": "hackyeah-front",
     "extra": {
       "router": {
@@ -19,6 +17,7 @@
     },
     "android": {
       "package": "com.paneuropa.guide"
-    }
+    },
+    "owner": "quantumnexus"
   }
 }
