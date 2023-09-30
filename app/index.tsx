@@ -7,7 +7,7 @@ const index = () => {
   const insets = useSafeAreaInsets();
 
   const handleOnPress = () => {
-    router.push("/map/cracow");
+    router.push("/maps/cracow");
   };
 
   return (
