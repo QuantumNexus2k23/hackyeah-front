@@ -1,52 +1,57 @@
 import { router } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 import { useAuth } from "../stores/auth";
 import { useForm } from "react-hook-form";
 import { RegisterData } from "../stores/auth/types";
 import { ControlledTextInput } from "../components/ControlledTextInput";
 import { Button } from "../components/Button";
-import API from "../api";
 
 export default function Register() {
-  const setTokens = useAuth((state) => state.setTokens);
-  const { control, handleSubmit } = useForm<RegisterData>();
+  const register = useAuth((state) => state.register);
+  const { control, handleSubmit, setError } = useForm<RegisterData>();
 
-  const onSubmit = async ({
-    username,
-    password,
-    re_password,
-  }: RegisterData) => {
+  const onSubmit = async ({ email, password, re_password }: RegisterData) => {
     if (password !== re_password) {
-      console.log("Passwords must be the same!");
+      setError("re_password", { message: "Passwords do not match!" });
       return;
     }
     try {
-      const data = await API.register({ username, password });
-      setTokens(data);
+      await register({ email, password });
       router.replace("/");
     } catch (err) {
-      console.log(JSON.stringify(err));
+      setError("re_password", {
+        message: "An user with such e-mail already exists!",
+      });
     }
   };
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ControlledTextInput control={control} name="username" label="Login" />
+      <ControlledTextInput
+        control={control}
+        name="email"
+        label="E-mail"
+        placeholder="Enter e-mail"
+      />
       <ControlledTextInput
         secure
         control={control}
         name="password"
-        label="password"
+        label="Password"
+        placeholder="Enter password"
       />
       <ControlledTextInput
         secure
         control={control}
         name="re_password"
-        label="Repeat password"
+        label="Retype password"
+        placeholder="Enter password"
       />
-      <Button onPress={handleSubmit(onSubmit)}>Boop</Button>
-      <Button onPress={() => router.replace("/login")}>login</Button>
+      <Button onPress={handleSubmit(onSubmit)}>Sign up</Button>
+      <Button onPress={() => router.replace("/login")}>
+        Przejdź do logowania
+      </Button>
     </View>
   );
 }

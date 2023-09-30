@@ -6,21 +6,17 @@ import { CredentialsData } from "../stores/auth/types";
 import { useForm } from "react-hook-form";
 import { ControlledTextInput } from "../components/ControlledTextInput";
 import { Button } from "../components/Button";
-import API from "../api";
 
 export default function SignIn() {
-  const setTokens = useAuth((state) => state.setTokens);
-  const { control, handleSubmit } = useForm<CredentialsData>();
+  const login = useAuth((state) => state.login);
+  const { control, handleSubmit, setError } = useForm<CredentialsData>();
 
   const onSubmit = async (credentials: CredentialsData) => {
     try {
-      console.log(credentials);
-      const data = await API.login(credentials);
-      console.log(data);
-      setTokens(data);
+      await login(credentials);
       router.replace("/");
     } catch (err) {
-      console.log(err);
+      setError("password", { message: "Wrong email or password!" });
     }
   };
 
@@ -32,15 +28,21 @@ export default function SignIn() {
         alignItems: "center",
       }}
     >
-      <ControlledTextInput control={control} name="username" label="Login" />
+      <ControlledTextInput
+        control={control}
+        name="email"
+        label="E-mail"
+        placeholder="Enter e-mail"
+      />
       <ControlledTextInput
         secure
         control={control}
         name="password"
-        label="password"
+        label="Password"
+        placeholder="Enter password"
       />
-      <Button onPress={handleSubmit(onSubmit)}>Boop</Button>
-      <Button onPress={() => router.replace("/register")}>Register</Button>
+      <Button onPress={handleSubmit(onSubmit)}>Log In</Button>
+      <Button onPress={() => router.replace("/register")}>Sign up</Button>
     </View>
   );
 }

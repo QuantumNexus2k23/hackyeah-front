@@ -5,4 +5,5 @@ export type ControlledTextInputProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   secure?: boolean;
+  placeholder: string;
 };

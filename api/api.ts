@@ -14,20 +14,30 @@ class API {
     return data;
   }
 
-  async register(payload: CredentialsData): Promise<TokensData> {
+  async register(payload: CredentialsData): Promise<void> {
     await this.request({
       url: "/accounts/users/",
       method: "POST",
       payload,
     });
+  }
 
+  async refreshToken(refresh: string): Promise<TokensData> {
     const { data } = await this.request<TokensData>({
-      url: "/accounts/jwt/create/",
+      url: "accounts/jwt/refresh/",
       method: "POST",
-      payload,
+      payload: { refresh },
     });
 
     return data;
+  }
+
+  async verifyToken(token: string): Promise<void> {
+    await this.request<void>({
+      url: "accounts/jwt/refresh/",
+      method: "POST",
+      payload: { token },
+    });
   }
 
   async getCities(): Promise<Array<CitiesType>> {
