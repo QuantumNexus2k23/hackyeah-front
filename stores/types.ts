@@ -9,10 +9,12 @@ export type Coord = {
 
 export type MapPoint = {
   id: number;
+  route: number;
   name: string;
   short_description: string;
   coordinate: Coord;
   main_image: string;
+  visited_by_user: boolean;
   paragraphs: Array<Paragraph>;
 };
 

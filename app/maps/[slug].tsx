@@ -6,6 +6,7 @@ import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
+import { MapPoint, MapRoute } from "../../stores/types";
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
@@ -13,10 +14,6 @@ const Maps: FC = () => {
   const { slug } = useLocalSearchParams();
 
   const insets = useSafeAreaInsets();
-  const [visitedSteps, addVisitedStep] = useReducer(
-    (visited: Array<number>, step: number) => [...visited, step],
-    []
-  );
 
   const { route, fetchMapData } = useMapData();
   useEffect(() => {
@@ -24,13 +21,22 @@ const Maps: FC = () => {
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
+
+  useEffect(() => {
+    setNextStep(
+      route?.route_points.findIndex(
+        ({ visited_by_user }) => !visited_by_user
+      ) ?? 0
+    );
+  }, [route]);
+
   const [currentId, setCurrentId] = useState<number>(4);
   const coordinates =
     route?.route_points.map(({ coordinate }) => coordinate) ?? [];
 
-  const isVisited = (index: number) => visitedSteps.includes(index);
-  const isVisitedOrNext = (index: number) =>
-    isVisited(index) || index === nextStep;
+  const isVisited = (routePoint: MapPoint) => routePoint.visited_by_user;
+  const isVisitedOrNext = (routePoint: MapPoint, index: number) =>
+    isVisited(routePoint) || index === nextStep;
 
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
@@ -49,11 +55,12 @@ const Maps: FC = () => {
           region={getRegionFromCoordinates(coordinates)}
           userInterfaceStyle="light"
         >
-          {route?.route_points?.map(({ coordinate }, index) => (
+          {route?.route_points?.map(({ coordinate, id }, index) => (
             <Marker
-              key={index}
+              key={id}
               coordinate={coordinate}
               onPress={() => {
+                if (isVisited(route?.route_points[index])) return;
                 setNextStep(index);
                 setCurrentId(route?.route_points[index].id);
               }}
@@ -65,19 +72,22 @@ const Maps: FC = () => {
                   justifyContent: "center",
                   height: 48,
                   width: 48,
-                  backgroundColor: isVisitedOrNext(index)
+                  backgroundColor: isVisitedOrNext(
+                    route?.route_points[index],
+                    index
+                  )
                     ? PRIMARY_MARKER_COLOR
                     : "#FFFFFFDD",
                   borderRadius: 2137,
                   borderColor: PRIMARY_MARKER_COLOR,
                   borderWidth: 2,
-                  opacity: isVisited(index) ? 0.5 : 1,
+                  opacity: isVisited(route?.route_points[index]) ? 0.5 : 1,
                 }}
               >
                 <Text
                   style={{
                     fontSize: 24,
-                    color: isVisitedOrNext(index)
+                    color: isVisitedOrNext(route?.route_points[index], index)
                       ? "white"
                       : PRIMARY_MARKER_COLOR,
                   }}
