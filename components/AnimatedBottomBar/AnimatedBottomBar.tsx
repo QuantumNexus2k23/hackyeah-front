@@ -17,7 +17,6 @@ export type AnimatedBottomBarProps = {
 };
 
 const AnimatedBottomBar = ({
-  id,
   title,
   description,
   pointNumber,
@@ -36,7 +35,7 @@ const AnimatedBottomBar = ({
 
   useEffect(() => {
     bottomSheetModalRef.current?.present();
-  }, [bottomSheetModalRef.current]);
+  }, [bottomSheetModalRef.current, title, description]);
 
   const handlePresentModalPress = useCallback(() => {
     if (isExpanded) {
@@ -74,7 +73,9 @@ const AnimatedBottomBar = ({
         <View style={styles.container}>
           <View style={styles.waypointNumber}>
             <View style={styles.row}>
-              <Text style={{ fontSize: 24, fontWeight: "bold" }}>{title}</Text>
+              <Text style={{ fontSize: 24, fontWeight: "bold", maxWidth: 272 }}>
+                {title}
+              </Text>
             </View>
             <View style={styles.row}>
               <Text
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 64,
+    marginTop: 48,
     marginLeft: 48,
   },
   button: {
