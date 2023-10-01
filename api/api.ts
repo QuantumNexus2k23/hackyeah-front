@@ -67,6 +67,7 @@ class API {
 
     return data;
   }
+
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({
       url: `/routes/${id}`,
