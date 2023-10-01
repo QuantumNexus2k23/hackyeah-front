@@ -25,11 +25,10 @@ const details = () => {
     router.back();
   };
 
-  const handleNextPlace = useCallback(async () => {
-    console.log({ route: routeDetails?.route, id: routeDetails?.id });
+  const handleNextPlace = async () => {
     await visitMapPoint(routeDetails?.route, routeDetails?.id);
     router.back();
-  }, [routeDetails]);
+  };
 
   return (
     <View style={{ paddingBottom: insets.bottom }}>
