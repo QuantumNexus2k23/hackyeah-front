@@ -12,7 +12,7 @@ export type MapPoint = {
   name: string;
   short_description: string;
   coordinate: Coord;
-  main_img: string;
+  main_image: string;
   paragraphs: Array<Paragraph>;
 };
 

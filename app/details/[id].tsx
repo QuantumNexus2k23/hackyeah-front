@@ -27,21 +27,21 @@ const details = () => {
   const handleNextPlace = () => {
     // TODO: navigate to next place
     console.log("Next place boop");
+    console.log(routeDetails);
   };
 
   return (
     <ScrollView>
       <View>
         <CustomAppbar
-          title={routeDetails?.name ? routeDetails.name : "Map point"}
+          title={routeDetails?.name || "Map point"}
           onGoBack={handleOnPress}
         />
       </View>
       <View>
         <Image
-          // Image source does not work for me :((
           source={{
-            uri: "https://images.pexels.com/photos/11789840/pexels-photo-11789840.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            uri: `${routeDetails?.main_image}`,
           }}
           style={styles.image}
           resizeMode="cover"
