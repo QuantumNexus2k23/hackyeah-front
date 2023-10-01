@@ -5,6 +5,7 @@ import { Button, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouteDetailsData } from "../../stores/routeDetailsData";
 import CustomAppbar from "../../components/CustomAppbar/CustomAppbar";
+import { visitMapPoint } from "../../stores/routeDetailsData/visitMapPoint";
 
 const details = () => {
   const insets = useSafeAreaInsets();
@@ -24,10 +25,9 @@ const details = () => {
     router.back();
   };
 
-  const handleNextPlace = () => {
-    // TODO: navigate to next place
-    console.log("Next place boop");
-    console.log(routeDetails);
+  const handleNextPlace = async () => {
+    await visitMapPoint(routeDetails?.route, routeDetails?.id);
+    router.back();
   };
 
   return (

@@ -1,10 +1,8 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
-import {
-  BackendCredentialsData,
-  TokensData,
-} from "../stores/auth/types";
+import { BackendCredentialsData, TokensData } from "../stores/auth/types";
 import { CitiesType, MapPoint, MapRoute, TrackType } from "../stores/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class API {
   async login(payload: BackendCredentialsData): Promise<TokensData> {
@@ -87,7 +85,15 @@ class API {
     return data;
   }
 
-  request<T>({
+  async visitPoint(routeId: number, id: number): Promise<void> {
+    await this.request<void>({
+      url: `/routes/${routeId}/visit/`,
+      method: "POST",
+      payload: { point: id },
+    });
+  }
+
+  async request<T>({
     url,
     method,
     headers,
@@ -98,10 +104,15 @@ class API {
     headers?: AxiosHeaders;
     payload?: any;
   }): Promise<AxiosResponse<T>> {
+    const accessToken = await AsyncStorage.getItem("access");
+
     return client.request({
       url,
       method,
-      headers,
+      headers: {
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+        ...headers,
+      },
       data: payload,
     });
   }
