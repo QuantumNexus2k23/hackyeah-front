@@ -8,12 +8,14 @@ import AnimatedBottomBar, {
 
 type Props = {
   currentId: number;
+  name?: string;
   children: React.ReactNode;
 } & AnimatedBottomBarProps;
 
 const MapWrapper = ({
   currentId,
   children,
+  name,
   ...animatedBottomBarProps
 }: Props) => {
   const handleGoBack = () => {
@@ -24,7 +26,7 @@ const MapWrapper = ({
     <View style={{ height: "100%" }}>
       <Appbar.Header>
         <Appbar.BackAction onPress={handleGoBack} />
-        <Appbar.Content title={'Trasa "Kraków Stare Miasto"'} />
+        <Appbar.Content title={name ?? ''} />
       </Appbar.Header>
       {children}
       <AnimatedBottomBar currentId={currentId} {...animatedBottomBarProps} />

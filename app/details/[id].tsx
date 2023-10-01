@@ -31,7 +31,7 @@ const details = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{ paddingBottom: insets.bottom }}>
       <View>
         <CustomAppbar
           title={routeDetails?.name || "Map point"}
@@ -51,19 +51,20 @@ const details = () => {
         </Text>
       </View>
       {routeDetails?.paragraphs.map((item) => (
-        <>
-          <Text key={item.id} style={styles.textParagraph}>
-            {item.text}
-          </Text>
+        <View key={item.id}>
+          <Text style={styles.textParagraph}>{item.text}</Text>
           <Image
             source={{ uri: item.image }}
             style={styles.image}
             resizeMode="cover"
           />
           <Text style={styles.imageDescription}>{item.image_description}</Text>
-        </>
+        </View>
       ))}
-      <Button style={styles.nextPlaceButton} onPress={handleNextPlace}>
+      <Button
+        style={styles.nextPlaceButton}
+        onPress={handleNextPlace}
+      >
         <Text style={styles.buttonText}>Next place</Text>
       </Button>
     </ScrollView>

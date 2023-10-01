@@ -5,10 +5,13 @@ import MapWrapper from "../../components/MapWrapper/MapWrapper";
 import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useLocalSearchParams } from "expo-router";
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
 const Maps: FC = () => {
+  const { slug } = useLocalSearchParams();
+
   const insets = useSafeAreaInsets();
   const [visitedSteps, addVisitedStep] = useReducer(
     (visited: Array<number>, step: number) => [...visited, step],
@@ -17,7 +20,7 @@ const Maps: FC = () => {
 
   const { route, fetchMapData } = useMapData();
   useEffect(() => {
-    fetchMapData("4");
+    fetchMapData(slug as string);
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
@@ -32,6 +35,7 @@ const Maps: FC = () => {
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <MapWrapper
+        name={route?.name}
         id={route?.route_points[nextStep].id}
         hero={route?.hero}
         quote="This is where it all started!"
