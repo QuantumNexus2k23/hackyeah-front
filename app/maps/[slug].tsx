@@ -6,19 +6,29 @@ import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
-import { MapPoint, MapRoute } from "../../stores/types";
+import { MapPoint } from "../../stores/types";
+import ConfettiCannon from "react-native-confetti-cannon";
+import * as Location from "expo-location";
+import MapRoute from "../../components/MapRoute";
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
 const Maps: FC = () => {
   const { slug } = useLocalSearchParams();
 
+  const [location, setLocation] =
+    useState<Location.LocationObjectCoords | null>(null);
   const insets = useSafeAreaInsets();
 
   const { route, fetchMapData } = useMapData();
 
   useEffect(() => {
     fetchMapData(slug as string);
+    const fetchLocation = async () => {
+      const location = await Location.getCurrentPositionAsync({});
+      setLocation(location.coords);
+    };
+    fetchLocation();
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
@@ -53,8 +63,11 @@ const Maps: FC = () => {
         allPointsVisited={!!allPointsVisited}
       >
         <MapView
-          style={{ width: "100%", height: "75%" }}
-          region={getRegionFromCoordinates(coordinates)}
+          style={{ width: "100%", height: "75%", opacity: allPointsVisited ? 0.4 : 1 }}
+          region={getRegionFromCoordinates([
+            ...coordinates,
+            ...(location ? [location] : []),
+          ])}
           userInterfaceStyle="light"
         >
           {route?.route_points?.map(({ coordinate, id }, index) => (
@@ -99,8 +112,18 @@ const Maps: FC = () => {
               </View>
             </Marker>
           ))}
+          {route?.route_points?.length ? (
+            <MapRoute
+              initLocation={location}
+              coordinates={coordinates}
+              imageURL={route.hero.image}
+            />
+          ) : null}
         </MapView>
       </MapWrapper>
+      {allPointsVisited && (
+        <ConfettiCannon count={200} origin={{ x: 0, y: 5000 }} />
+      )}
     </View>
   );
 };

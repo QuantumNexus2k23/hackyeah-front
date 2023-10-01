@@ -1,12 +1,11 @@
 import { router } from "expo-router";
-import { TouchableRipple } from "react-native-paper";
 import TrackCard from "./TrackCard";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { TrackType } from "../../stores/types";
 
 const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
   const handleOnPress = (id: number) => {
-    const route = `maps/${id}`;
+    const route = `track-details/${id}`;
     router.push(route);
   };
 
@@ -14,15 +13,16 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
     <FlatList
       data={tracks}
       renderItem={({ item }) => (
-        <TouchableRipple
-          rippleColor="rgba(0, 0, 0, .32)"
+        <TouchableOpacity
+          activeOpacity={0.6}
           onPress={() => handleOnPress(item.id)}
+          style={{ margin: 10 }}
         >
           <TrackCard {...item} />
-        </TouchableRipple>
+        </TouchableOpacity>
       )}
       keyExtractor={(item) => `${item.name}${item.id}`}
-    ></FlatList>
+    />
   );
 };
 
