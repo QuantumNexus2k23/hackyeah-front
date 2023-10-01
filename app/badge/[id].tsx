@@ -1,8 +1,10 @@
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
 import { Appbar } from "react-native-paper";
 
 const badge = () => {
+  const { id } = useLocalSearchParams();
+
   return (
     <View>
       <Appbar.Header>

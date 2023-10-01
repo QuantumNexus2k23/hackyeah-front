@@ -1,3 +1,4 @@
+import heroes from "../app/heroes";
 export type Marker = {
   coordinate: Coord;
 };
@@ -53,9 +54,15 @@ export type RouteDetailsDataStore = {
   fetchRouteDetails: (id: string) => Promise<void>;
 };
 
+export type HeroesDataStore = {
+  heroes: Array<Hero>;
+  fetchHeroes: () => Promise<void>;
+};
+
 export type CitiesType = { id: number; name: string };
 
 export type Hero = {
+  id: number;
   image: string;
   name: string;
 };

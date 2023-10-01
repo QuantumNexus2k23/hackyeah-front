@@ -1,0 +1,1 @@
+export { useHeroesData } from "./heroesData";
