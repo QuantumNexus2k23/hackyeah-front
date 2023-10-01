@@ -1,6 +1,9 @@
 {
   "expo": {
     "scheme": "acme",
+    "splash": {
+      "image": "./assets/images/logo.png"
+    },
     "web": {
       "bundler": "metro"
     },
@@ -24,7 +27,16 @@
       }
     },
     "android": {
-      "package": "com.paneuropa.guide"
+      "package": "com.paneuropa.guide",
+      "icon": "./assets/images/logo.png",
+      "config": {
+        "googleMaps": {
+          "apiKey": "api-key"
+        }
+      }
+    },
+    "ios": {
+      "icon": "./assets/images/logo.png"
     },
     "owner": "quantumnexus"
   }
