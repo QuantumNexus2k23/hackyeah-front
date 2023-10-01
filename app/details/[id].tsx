@@ -61,7 +61,10 @@ const details = () => {
           <Text style={styles.imageDescription}>{item.image_description}</Text>
         </View>
       ))}
-      <Button style={styles.nextPlaceButton} onPress={handleNextPlace}>
+      <Button
+        style={styles.nextPlaceButton}
+        onPress={handleNextPlace}
+      >
         <Text style={styles.buttonText}>Next place</Text>
       </Button>
     </ScrollView>
