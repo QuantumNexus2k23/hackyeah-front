@@ -6,6 +6,7 @@ import AnimatedBottomBar, {
   AnimatedBottomBarProps,
 } from "../AnimatedBottomBar/AnimatedBottomBar";
 import FinishedRouteBottomBar from "../AnimatedBottomBar/FinishedRouteBottomBar";
+import CustomAppbar from "../CustomAppbar/CustomAppbar";
 
 type Props = {
   currentId: number;
@@ -27,10 +28,7 @@ const MapWrapper = ({
 
   return (
     <View style={{ height: "100%" }}>
-      <Appbar.Header>
-        <Appbar.BackAction onPress={handleGoBack} />
-        <Appbar.Content title={name ?? ""} />
-      </Appbar.Header>
+      <CustomAppbar title={name ?? ""} onGoBack={handleGoBack} />
       {children}
       {!allPointsVisited && (
         <AnimatedBottomBar currentId={currentId} {...animatedBottomBarProps} />

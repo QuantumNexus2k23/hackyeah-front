@@ -1,6 +1,5 @@
 import { View } from "react-native";
 
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Place from "../../assets/svg/place.svg";
 import History from "../../assets/svg/history.svg";
 import Timelapse from "../../assets/svg/timelapse.svg";
@@ -8,9 +7,9 @@ import { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { useMapData } from "../../stores/mapData";
 import { Button, Text } from "react-native-paper";
+import CustomAppbar from "../../components/CustomAppbar/CustomAppbar";
 
 const chooseTrack = () => {
-  const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams();
   const { route, fetchMapData } = useMapData();
   useEffect(() => {
@@ -22,10 +21,10 @@ const chooseTrack = () => {
   return route ? (
     <View
       style={{
-        paddingTop: insets.top,
         paddingHorizontal: 15,
       }}
     >
+      <CustomAppbar title={route.name} onGoBack={() => router.back()} />
       <Text variant="titleLarge" style={{ color: "#4F2022", marginBottom: 4 }}>
         {route.name}
       </Text>
