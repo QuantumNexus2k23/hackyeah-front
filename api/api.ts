@@ -1,15 +1,13 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
-import { CredentialsData, TokensData } from "../stores/auth/types";
 import {
-  CitiesType,
-  MapRoute,
-  RoutePointData,
-  TrackType,
-} from "../stores/types";
+  BackendCredentialsData,
+  TokensData,
+} from "../stores/auth/types";
+import { CitiesType, MapPoint, MapRoute, TrackType } from "../stores/types";
 
 class API {
-  async login(payload: CredentialsData): Promise<TokensData> {
+  async login(payload: BackendCredentialsData): Promise<TokensData> {
     const { data } = await this.request<TokensData>({
       url: "/accounts/jwt/create/",
       method: "POST",
@@ -19,20 +17,30 @@ class API {
     return data;
   }
 
-  async register(payload: CredentialsData): Promise<TokensData> {
+  async register(payload: BackendCredentialsData): Promise<void> {
     await this.request({
       url: "/accounts/users/",
       method: "POST",
       payload,
     });
+  }
 
+  async refreshToken(refresh: string): Promise<{ access: string }> {
     const { data } = await this.request<TokensData>({
-      url: "/accounts/jwt/create/",
+      url: "accounts/jwt/refresh/",
       method: "POST",
-      payload,
+      payload: { refresh },
     });
 
     return data;
+  }
+
+  async verifyToken(token: string): Promise<void> {
+    await this.request<void>({
+      url: "accounts/jwt/refresh/",
+      method: "POST",
+      payload: { token },
+    });
   }
 
   async getCities(): Promise<Array<CitiesType>> {
@@ -70,8 +78,8 @@ class API {
     return data;
   }
 
-  async getRoutePointsData(id: number): Promise<RoutePointData> {
-    const { data } = await this.request<RoutePointData>({
+  async getMapPoint(id: string): Promise<MapPoint> {
+    const { data } = await this.request<MapPoint>({
       url: `/route-points/${id}`,
       method: "GET",
     });

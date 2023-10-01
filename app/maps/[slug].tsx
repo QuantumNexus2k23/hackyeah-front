@@ -21,6 +21,7 @@ const Maps: FC = () => {
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
+  const [currentId, setCurrentId] = useState<number>(4);
   const coordinates =
     route?.route_points.map(({ coordinate }) => coordinate) ?? [];
 
@@ -37,6 +38,7 @@ const Maps: FC = () => {
         title={route?.route_points[nextStep].name}
         description={route?.route_points[nextStep].short_description}
         pointNumber={nextStep + 1}
+        currentId={currentId}
       >
         <MapView
           style={{ width: "100%", height: "75%" }}
@@ -47,7 +49,10 @@ const Maps: FC = () => {
             <Marker
               key={index}
               coordinate={coordinate}
-              onPress={() => setNextStep(index)}
+              onPress={() => {
+                setNextStep(index);
+                setCurrentId(route?.route_points[index].id);
+              }}
             >
               <View
                 style={{

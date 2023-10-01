@@ -1,1 +1,0 @@
-export { useRoutePointsData } from "./routePointsData";

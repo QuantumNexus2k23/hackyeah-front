@@ -1,27 +1,39 @@
-import { Redirect, router } from "expo-router";
+import { Redirect } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
-import { Button } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../stores/auth";
 import { useCitiesData } from "../stores/citiesData/citiesData";
 import { useEffect } from "react";
+import ChooseCity from "../components/ChooseCity/ChooseCity";
 
 const index = () => {
   const insets = useSafeAreaInsets();
-  const { access, loading } = useAuth();
+  const { access, loading, restoreTokens } = useAuth(
+    ({ access, loading, restoreTokens }) => ({
+      access,
+      loading,
+      restoreTokens,
+    })
+  );
+
+  useEffect(() => {
+    if (!access) {
+      restoreTokens();
+    }
+  }, []);
 
   const { cities, fetchCities } = useCitiesData();
   useEffect(() => {
     fetchCities();
   }, []);
 
-  const handleOnPress = (id: number) => {
-    router.push(`/choose-track/${id}`);
-  };
-
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (loading) {
-    return <ActivityIndicator />;
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
   }
 
   // Only require authentication within the (app) group's layout as users
@@ -38,17 +50,10 @@ const index = () => {
     <View
       style={{
         paddingTop: insets.top,
+        flexDirection: "column",
       }}
     >
-      {cities.map((item, index) => (
-        <Button
-          key={index}
-          mode="contained"
-          onPress={() => handleOnPress(item.id)}
-        >
-          {item.name}
-        </Button>
-      ))}
+      <ChooseCity cities={cities} />
     </View>
   );
 };

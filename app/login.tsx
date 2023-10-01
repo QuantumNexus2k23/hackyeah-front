@@ -1,46 +1,90 @@
 import { router } from "expo-router";
-import { View } from "react-native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 
 import { useAuth } from "../stores/auth";
 import { CredentialsData } from "../stores/auth/types";
 import { useForm } from "react-hook-form";
 import { ControlledTextInput } from "../components/ControlledTextInput";
 import { Button } from "../components/Button";
-import API from "../api";
+import { useEffect } from "react";
 
 export default function SignIn() {
-  const setTokens = useAuth((state) => state.setTokens);
-  const { control, handleSubmit } = useForm<CredentialsData>();
+  const [access, login, loading] = useAuth((state) => [
+    state.access,
+    state.login,
+    state.loading,
+  ]);
+  const { control, handleSubmit, setError } = useForm<CredentialsData>();
+
+  useEffect(() => {
+    if (access) router.replace("/");
+  }, [access]);
 
   const onSubmit = async (credentials: CredentialsData) => {
     try {
-      console.log(credentials);
-      const data = await API.login(credentials);
-      console.log(data);
-      setTokens(data);
+      await login(credentials);
       router.replace("/");
     } catch (err) {
-      console.log(err);
+      setError("password", { message: "Wrong email or password!" });
     }
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <ControlledTextInput control={control} name="username" label="Login" />
-      <ControlledTextInput
-        secure
-        control={control}
-        name="password"
-        label="password"
-      />
-      <Button onPress={handleSubmit(onSubmit)}>Boop</Button>
-      <Button onPress={() => router.replace("/register")}>Register</Button>
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          height: "30%",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          marginBottom: "20%",
+        }}
+      >
+        <Image source={require("../assets/images/logo.png")} />
+      </View>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <ControlledTextInput
+          control={control}
+          name="email"
+          label="E-mail"
+          placeholder="Enter e-mail"
+        />
+        <ControlledTextInput
+          secure
+          control={control}
+          name="password"
+          label="Password"
+          placeholder="Enter password"
+        />
+        <View style={{ marginTop: 40 }}>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <Button
+              onPress={handleSubmit(onSubmit)}
+              style={{ backgroundColor: "#7E494A" }}
+              labelStyle={{ color: "white", width: "80%" }}
+            >
+              Log In
+            </Button>
+          )}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 10,
+            }}
+          >
+            <Text>New here?</Text>
+            <Button
+              onPress={() => router.replace("/register")}
+              labelStyle={{ fontWeight: "bold" }}
+            >
+              Sign up
+            </Button>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }

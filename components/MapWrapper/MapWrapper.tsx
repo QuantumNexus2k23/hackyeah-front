@@ -6,9 +6,16 @@ import AnimatedBottomBar, {
   AnimatedBottomBarProps,
 } from "../AnimatedBottomBar/AnimatedBottomBar";
 
-type Props = { children: React.ReactNode } & AnimatedBottomBarProps;
+type Props = {
+  currentId: number;
+  children: React.ReactNode;
+} & AnimatedBottomBarProps;
 
-const MapWrapper = ({ children, ...animatedBottomBarProps }: Props) => {
+const MapWrapper = ({
+  currentId,
+  children,
+  ...animatedBottomBarProps
+}: Props) => {
   const handleGoBack = () => {
     router.back();
   };
@@ -20,7 +27,7 @@ const MapWrapper = ({ children, ...animatedBottomBarProps }: Props) => {
         <Appbar.Content title={'Trasa "Kraków Stare Miasto"'} />
       </Appbar.Header>
       {children}
-      <AnimatedBottomBar {...animatedBottomBarProps} />
+      <AnimatedBottomBar currentId={currentId} {...animatedBottomBarProps} />
     </View>
   );
 };

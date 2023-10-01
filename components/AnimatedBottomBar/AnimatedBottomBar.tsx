@@ -4,7 +4,6 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Hero } from "../../stores/types";
-import { useRoutePointsData } from "../../stores/routePointsData/routePointsData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export type AnimatedBottomBarProps = {
@@ -14,6 +13,7 @@ export type AnimatedBottomBarProps = {
   hero?: Hero;
   quote?: string;
   pointNumber: number;
+  currentId: number;
 };
 
 const AnimatedBottomBar = ({
@@ -23,23 +23,16 @@ const AnimatedBottomBar = ({
   pointNumber,
   hero,
   quote,
+  currentId,
 }: AnimatedBottomBarProps) => {
   const insets = useSafeAreaInsets();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const handleViewDetails = () => {
-    router.push("/details");
+  const handleViewDetails = (id: number) => {
+    router.push(`/details/${id}`);
   };
   const [isExpanded, setExpanded] = useState(false);
 
   const snapPoints = useMemo(() => ["15%", "50%"], []);
-
-  const { routePointData, fetchRoutePointsData } = useRoutePointsData();
-
-  console.log(routePointData);
-
-  useEffect(() => {
-    if (id) fetchRoutePointsData(id);
-  }, [id]);
 
   useEffect(() => {
     bottomSheetModalRef.current?.present();
@@ -116,7 +109,7 @@ const AnimatedBottomBar = ({
           <Button
             labelStyle={styles.buttonLabel}
             style={[styles.button, { marginTop: isExpanded ? 0 : 64 }]}
-            onPress={handleViewDetails}
+            onPress={() => handleViewDetails(currentId)}
           >
             I am here!
           </Button>
