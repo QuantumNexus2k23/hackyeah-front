@@ -15,6 +15,7 @@ export type MapPoint = {
   coordinate: Coord;
   main_image: string;
   visited_by_user: boolean;
+  comics_url: string;
   paragraphs: Array<Paragraph>;
 };
 

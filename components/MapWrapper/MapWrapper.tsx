@@ -13,6 +13,7 @@ type Props = {
   name?: string;
   children: React.ReactNode;
   allPointsVisited: boolean;
+  comicsUrl?: string;
 } & AnimatedBottomBarProps;
 
 const MapWrapper = ({

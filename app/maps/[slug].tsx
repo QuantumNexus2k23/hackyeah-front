@@ -60,6 +60,7 @@ const Maps: FC = () => {
         description={route?.route_points[nextStep].short_description}
         pointNumber={nextStep + 1}
         currentId={currentId}
+        comicsUrl={route?.route_points[nextStep]?.comics_url}
         allPointsVisited={!!allPointsVisited}
       >
         <MapView
