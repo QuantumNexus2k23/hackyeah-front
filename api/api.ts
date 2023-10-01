@@ -73,6 +73,14 @@ class API {
 
     return data;
   }
+  async getHeroesBadge(id: string): Promise<TrackType[]> {
+    const { data } = await this.request<TrackType[]>({
+      url: `/routes/?hero_id=${id}`,
+      method: "GET",
+    });
+
+    return data;
+  }
 
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({

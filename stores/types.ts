@@ -63,6 +63,10 @@ export type HeroeDataStore = {
   heroe: Hero | null;
   fetchHeroe: (id: number) => Promise<void>;
 };
+export type HeroesBadgesDataStore = {
+  routes: TrackType[] | null;
+  fetchRoutes: (id: string) => Promise<void>;
+};
 
 export type CitiesType = { id: number; name: string };
 
@@ -82,6 +86,7 @@ export type TrackType = {
   duration: string;
   route_type: string;
   hero: Hero;
+  visited_by_user: boolean;
 };
 
 export type Paragraph = {

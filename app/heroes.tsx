@@ -19,30 +19,53 @@ const heroes = () => {
     <View>
       <Appbar.Header>
         <Appbar.BackAction onPress={() => router.back()} />
-        <Appbar.Content title="Heroes" titleStyle={{ fontWeight: "bold" }} />
+        <Appbar.Content
+          title="Tour badges"
+          titleStyle={{ fontWeight: "bold" }}
+        />
       </Appbar.Header>
-      {heroes.map((item, index) => (
-        <Card
-          key={`${item.name}-${index}`}
-          onPress={() => handleShowHeroeBadge(item.id)}
+      <View style={{ marginHorizontal: 10 }}>
+        <Text
+          style={{
+            marginTop: 10,
+            marginBottom: 30,
+            color: "#7E494A",
+            fontWeight: "500",
+            fontSize: 18,
+          }}
         >
-          <Card.Content>
-            <Text variant="titleLarge">{item.name}</Text>
-            <Image source={{ uri: item.image }} style={styles.image} />
+          Complete tours, collect badges and earn discounts to local places!
+        </Text>
+        {heroes.map((item, index) => (
+          <Card
+            style={{ position: "relative", height: 152 }}
+            key={`${item.name}-${index}`}
+            onPress={() => handleShowHeroeBadge(item.id)}
+          >
             <Text>{item.id}</Text>
-          </Card.Content>
-        </Card>
-      ))}
+            <Image source={{ uri: item.image }} style={styles.image} />
+            <Card.Content style={{ marginLeft: 120 }}>
+              <Text
+                variant="titleLarge"
+                style={{ color: "#7E494A", fontWeight: "500", marginTop: 20 }}
+              >
+                {item.name}'s Badge
+              </Text>
+            </Card.Content>
+          </Card>
+        ))}
+      </View>
     </View>
   );
 };
 
-const screenWidth = Dimensions.get("screen").width;
-
 const styles = StyleSheet.create({
   image: {
-    width: screenWidth,
-    height: 200,
+    width: 90,
+    height: 140,
+    position: "absolute",
+    top: 6,
+    left: 10,
   },
 });
 
