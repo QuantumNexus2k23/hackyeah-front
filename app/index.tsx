@@ -5,6 +5,7 @@ import { useAuth } from "../stores/auth";
 import { useCitiesData } from "../stores/citiesData/citiesData";
 import { useEffect } from "react";
 import ChooseCity from "../components/ChooseCity/ChooseCity";
+import * as Location from "expo-location";
 
 const index = () => {
   const insets = useSafeAreaInsets();
@@ -20,6 +21,7 @@ const index = () => {
     if (!access) {
       restoreTokens();
     }
+    Location.requestForegroundPermissionsAsync();
   }, []);
 
   const { cities, fetchCities } = useCitiesData();
