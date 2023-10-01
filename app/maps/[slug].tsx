@@ -38,7 +38,7 @@ const Maps: FC = () => {
   const isVisited = (routePoint: MapPoint) => routePoint.visited_by_user;
   const isVisitedOrNext = (routePoint: MapPoint, index: number) =>
     isVisited(routePoint) || index === nextStep;
-  const allPointsVisited = true || route?.route_points.every(isVisited);
+  const allPointsVisited = route?.route_points.every(isVisited);
 
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
