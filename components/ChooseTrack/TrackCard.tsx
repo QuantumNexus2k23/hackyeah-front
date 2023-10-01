@@ -20,7 +20,6 @@ const TrackCard = ({
   return (
     <Card
       style={{
-        marginVertical: 30,
         backgroundColor: "#FBF8F8",
         position: "relative",
       }}
@@ -71,6 +70,7 @@ const TrackCard = ({
             position: "absolute",
             bottom: -11,
             right: -60,
+            transform: [{ scaleX: -1 }],
           }}
           source={{ uri: hero.image }}
         />
