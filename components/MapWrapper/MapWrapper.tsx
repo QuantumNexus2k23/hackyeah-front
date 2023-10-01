@@ -5,17 +5,20 @@ import { router } from "expo-router";
 import AnimatedBottomBar, {
   AnimatedBottomBarProps,
 } from "../AnimatedBottomBar/AnimatedBottomBar";
+import FinishedRouteBottomBar from "../AnimatedBottomBar/FinishedRouteBottomBar";
 
 type Props = {
   currentId: number;
   name?: string;
   children: React.ReactNode;
+  allPointsVisited: boolean;
 } & AnimatedBottomBarProps;
 
 const MapWrapper = ({
   currentId,
   children,
   name,
+  allPointsVisited,
   ...animatedBottomBarProps
 }: Props) => {
   const handleGoBack = () => {
@@ -26,10 +29,15 @@ const MapWrapper = ({
     <View style={{ height: "100%" }}>
       <Appbar.Header>
         <Appbar.BackAction onPress={handleGoBack} />
-        <Appbar.Content title={name ?? ''} />
+        <Appbar.Content title={name ?? ""} />
       </Appbar.Header>
       {children}
-      <AnimatedBottomBar currentId={currentId} {...animatedBottomBarProps} />
+      {!allPointsVisited && (
+        <AnimatedBottomBar currentId={currentId} {...animatedBottomBarProps} />
+      )}
+      {allPointsVisited && (
+        <FinishedRouteBottomBar hero={animatedBottomBarProps.hero} />
+      )}
     </View>
   );
 };

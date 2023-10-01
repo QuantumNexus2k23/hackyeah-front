@@ -6,7 +6,7 @@ import getRegionFromCoordinates from "../../utils/coordinates";
 import { useMapData } from "../../stores/mapData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
-import { MapPoint, MapRoute } from "../../stores/types";
+import { MapPoint } from "../../stores/types";
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
@@ -37,6 +37,7 @@ const Maps: FC = () => {
   const isVisited = (routePoint: MapPoint) => routePoint.visited_by_user;
   const isVisitedOrNext = (routePoint: MapPoint, index: number) =>
     isVisited(routePoint) || index === nextStep;
+  const allPointsVisited = route?.route_points.every(isVisited);
 
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
@@ -49,6 +50,7 @@ const Maps: FC = () => {
         description={route?.route_points[nextStep].short_description}
         pointNumber={nextStep + 1}
         currentId={currentId}
+        allPointsVisited={!!allPointsVisited}
       >
         <MapView
           style={{ width: "100%", height: "75%" }}
