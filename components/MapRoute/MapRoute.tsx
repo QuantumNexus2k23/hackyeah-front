@@ -6,14 +6,16 @@ import { Coord } from "../../stores/types";
 import { Marker } from "react-native-maps";
 import { Image, Text, View } from "react-native";
 
-const MapRoute: FC<MapRouteProps> = ({ coordinates, initLocation }) => {
+const MapRoute: FC<MapRouteProps> = ({
+  coordinates,
+  initLocation,
+  imageURL,
+}) => {
   const [location, setLocation] = useState<Coord>(initLocation);
 
   useEffect(() => {
     const fetchLocation = async () => {
-      const location = await Location.getCurrentPositionAsync({});
-      console.log(location);
-      setLocation(location.coords);
+      setLocation(location);
     };
     const interval = setInterval(async () => {
       fetchLocation();
@@ -51,8 +53,7 @@ const MapRoute: FC<MapRouteProps> = ({ coordinates, initLocation }) => {
           }}
         >
           <Image
-            // Mock, to be deleted
-            source={require("../../assets/images/atena.png")}
+            source={{ uri: imageURL }}
             style={{ width: "100%", height: "100%" }}
           />
         </View>

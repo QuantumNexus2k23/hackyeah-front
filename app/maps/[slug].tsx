@@ -113,7 +113,11 @@ const Maps: FC = () => {
             </Marker>
           ))}
           {location && route?.route_points?.length ? (
-            <MapRoute initLocation={location} coordinates={coordinates} />
+            <MapRoute
+              initLocation={location}
+              coordinates={coordinates}
+              imageURL={route.hero.image}
+            />
           ) : null}
         </MapView>
       </MapWrapper>

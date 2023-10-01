@@ -1,14 +1,17 @@
 import { Redirect } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, Linking } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../stores/auth";
 import { useCitiesData } from "../stores/citiesData/citiesData";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import ChooseCity from "../components/ChooseCity/ChooseCity";
 import * as Location from "expo-location";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Text } from "react-native-paper";
 
 const index = () => {
   const insets = useSafeAreaInsets();
+  const bottomSheetModalRef = useRef<BottomSheetModal | null>(null);
   const { access, loading, restoreTokens } = useAuth(
     ({ access, loading, restoreTokens }) => ({
       access,
@@ -21,8 +24,17 @@ const index = () => {
     if (!access) {
       restoreTokens();
     }
-    Location.requestForegroundPermissionsAsync();
-  }, []);
+    const checkLocation = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") return;
+
+      const serviceStatus = await Location.hasServicesEnabledAsync();
+      if (serviceStatus) return;
+
+      bottomSheetModalRef.current?.present();
+    };
+    checkLocation();
+  }, [access]);
 
   const { cities, fetchCities } = useCitiesData();
   useEffect(() => {
@@ -56,6 +68,29 @@ const index = () => {
       }}
     >
       <ChooseCity cities={cities} />
+      <BottomSheetModal snapPoints={["20%"]} ref={bottomSheetModalRef}>
+        <View
+          style={{
+            flex: 1,
+            width: "100%",
+            backgroundColor: "#EEE",
+            alignItems: "center",
+            paddingHorizontal: 16,
+            borderTopEndRadius: 20,
+            borderTopStartRadius: 20,
+          }}
+        >
+          <Text
+            variant="bodyLarge"
+            style={{
+              textAlign: "center",
+              paddingTop: 20,
+            }}
+          >
+            We strongly encourage you to turn on Location services
+          </Text>
+        </View>
+      </BottomSheetModal>
     </View>
   );
 };
