@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouteDetailsData } from "../../stores/routeDetailsData";
 import CustomAppbar from "../../components/CustomAppbar/CustomAppbar";
 import { visitMapPoint } from "../../stores/routeDetailsData/visitMapPoint";
+import { useHeroeData } from "../../stores/heroData/heroeData";
 
 const details = () => {
   const insets = useSafeAreaInsets();
@@ -16,9 +17,11 @@ const details = () => {
   }
 
   const { routeDetails, fetchRouteDetails } = useRouteDetailsData();
+  const { heroe, fetchHeroe } = useHeroeData();
 
   useEffect(() => {
     fetchRouteDetails(id);
+    fetchHeroe(1);
   }, []);
 
   const handleOnPress = () => {
@@ -49,6 +52,17 @@ const details = () => {
         <Text style={styles.shortDescription}>
           {routeDetails?.short_description}
         </Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image source={{ uri: heroe?.image }} style={styles.heroImage} />
+          <Text>{heroe?.name}</Text>
+        </View>
       </View>
       {routeDetails?.paragraphs.map((item) => (
         <View key={item.id}>
@@ -61,10 +75,7 @@ const details = () => {
           <Text style={styles.imageDescription}>{item.image_description}</Text>
         </View>
       ))}
-      <Button
-        style={styles.nextPlaceButton}
-        onPress={handleNextPlace}
-      >
+      <Button style={styles.nextPlaceButton} onPress={handleNextPlace}>
         <Text style={styles.buttonText}>Next place</Text>
       </Button>
     </ScrollView>
@@ -77,6 +88,10 @@ const styles = StyleSheet.create({
   image: {
     width: screenWidth,
     height: 200,
+  },
+  heroImage: {
+    width: screenWidth / 3,
+    height: 100,
   },
   nextPlaceButton: {
     backgroundColor: "#7E494A",
