@@ -1,15 +1,16 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useEffect, useRef } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Linking, StyleSheet, Text } from "react-native";
 import { Button } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Hero } from "../../stores/types";
 
 type Props = {
   hero?: Hero;
+  comicsUrl?: string;
 };
 
-const FinishedRouteBottomBar = ({ hero }: Props) => {
+const FinishedRouteBottomBar = ({ hero, comicsUrl }: Props) => {
   const insets = useSafeAreaInsets();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
@@ -47,7 +48,7 @@ const FinishedRouteBottomBar = ({ hero }: Props) => {
       <Button
         labelStyle={styles.buttonLabel}
         style={styles.button}
-        onPress={() => console.log("Well done! Link will be delivered soon!")}
+        onPress={() => Linking.openURL(comicsUrl ?? "")}
       >
         Download full story
       </Button>

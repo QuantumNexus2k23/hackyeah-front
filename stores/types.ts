@@ -22,6 +22,7 @@ export type MapRoute = {
   name: string;
   description: string;
   duration: string;
+  comics_url: string;
   hero: Hero;
   route_points: Array<MapPoint>;
   starting_point_title: string;
