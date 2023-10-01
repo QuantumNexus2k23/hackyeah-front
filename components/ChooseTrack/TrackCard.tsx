@@ -1,7 +1,7 @@
 import { Card, Text } from "react-native-paper";
-import Place from "./static/place.svg";
-import History from "./static/history.svg";
-import Timelapse from "./static/timelapse.svg";
+import Place from "../../assets/svg/place.svg";
+import History from "../../assets/svg/history.svg";
+import Timelapse from "../../assets/svg/timelapse.svg";
 import { Image, View } from "react-native";
 import { TrackType } from "../../stores/types";
 
@@ -22,9 +22,11 @@ const TrackCard = ({
       style={{
         backgroundColor: "#FBF8F8",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Card.Content style={{ marginBottom: 5 }}>
+      <Card.Cover style={{ borderRadius: 0 }} source={{ uri: image }} />
+      <Card.Content style={{ marginVertical: 5 }}>
         <Text
           variant="titleLarge"
           style={{ color: "#4F2022", marginBottom: 4 }}
@@ -75,7 +77,6 @@ const TrackCard = ({
           source={{ uri: hero.image }}
         />
       ) : null}
-      <Card.Cover style={{ borderRadius: 0 }} source={{ uri: image }} />
     </Card>
   );
 };

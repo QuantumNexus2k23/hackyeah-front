@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.5.1",
-    "@react-native-async-storage/async-storage": "^1.19.3",
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@types/react": "^18.2.23",
     "axios": "^1.5.1",
     "eslint": "^8.50.0",

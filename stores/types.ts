@@ -20,9 +20,13 @@ export type MapPoint = {
 
 export type MapRoute = {
   name: string;
-  short_description: string;
+  description: string;
+  duration: string;
   hero: Hero;
   route_points: Array<MapPoint>;
+  starting_point_title: string;
+  route_type: string;
+  image: string;
 };
 
 export type CitiesDataStore = {
