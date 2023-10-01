@@ -21,6 +21,7 @@ const Maps: FC = () => {
   const insets = useSafeAreaInsets();
 
   const { route, fetchMapData } = useMapData();
+
   useEffect(() => {
     fetchMapData(slug as string);
     const fetchLocation = async () => {
@@ -33,11 +34,10 @@ const Maps: FC = () => {
   const [nextStep, setNextStep] = useState<number>(0);
 
   useEffect(() => {
-    setNextStep(
-      route?.route_points.findIndex(
-        ({ visited_by_user }) => !visited_by_user
-      ) ?? 0
+    const nextStep = route?.route_points.findIndex(
+      ({ visited_by_user }) => !visited_by_user
     );
+    if (nextStep) setNextStep(nextStep);
   }, [route]);
 
   const [currentId, setCurrentId] = useState<number>(4);
@@ -53,17 +53,17 @@ const Maps: FC = () => {
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <MapWrapper
         name={route?.name}
-        id={route?.route_points[nextStep].id}
+        id={route?.route_points[nextStep]?.id}
         hero={route?.hero}
         quote="This is where it all started!"
-        title={route?.route_points[nextStep].name}
-        description={route?.route_points[nextStep].short_description}
+        title={route?.route_points[nextStep]?.name}
+        description={route?.route_points[nextStep]?.short_description}
         pointNumber={nextStep + 1}
         currentId={currentId}
         allPointsVisited={!!allPointsVisited}
       >
         <MapView
-          style={{ width: "100%", height: "75%", opacity: 0.4 }}
+          style={{ width: "100%", height: "75%", opacity: allPointsVisited ? 0.4 : 1 }}
           region={getRegionFromCoordinates([
             ...coordinates,
             ...(location ? [location] : []),
@@ -77,7 +77,7 @@ const Maps: FC = () => {
               onPress={() => {
                 if (isVisited(route?.route_points[index])) return;
                 setNextStep(index);
-                setCurrentId(route?.route_points[index].id);
+                setCurrentId(route?.route_points[index]?.id);
               }}
             >
               <View
