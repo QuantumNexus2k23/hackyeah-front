@@ -8,7 +8,6 @@ import { router, useLocalSearchParams } from "expo-router";
 import CustomAppbar from "../../components/CustomAppbar/CustomAppbar";
 
 const chooseTrack = () => {
-  const insets = useSafeAreaInsets();
   const { id } = useLocalSearchParams();
   const { tracks, fetchTracks } = useTracksData();
   useEffect(() => {

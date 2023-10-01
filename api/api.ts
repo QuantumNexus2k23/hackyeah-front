@@ -1,7 +1,13 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
 import { BackendCredentialsData, TokensData } from "../stores/auth/types";
-import { CitiesType, MapPoint, MapRoute, TrackType } from "../stores/types";
+import {
+  CitiesType,
+  Hero,
+  MapPoint,
+  MapRoute,
+  TrackType,
+} from "../stores/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class API {
@@ -67,6 +73,14 @@ class API {
 
     return data;
   }
+  async getHeroesBadge(id: string): Promise<TrackType[]> {
+    const { data } = await this.request<TrackType[]>({
+      url: `/routes/?hero_id=${id}`,
+      method: "GET",
+    });
+
+    return data;
+  }
 
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({
@@ -92,6 +106,24 @@ class API {
       method: "POST",
       payload: { point: id },
     });
+  }
+
+  async getHeroes(): Promise<Array<Hero>> {
+    const { data } = await this.request<Array<Hero>>({
+      url: `/heroes`,
+      method: "GET",
+    });
+
+    return data;
+  }
+
+  async getHeroById(id: number): Promise<Hero> {
+    const { data } = await this.request<Hero>({
+      url: `/heroes/${id}`,
+      method: "GET",
+    });
+
+    return data;
   }
 
   async request<T>({
