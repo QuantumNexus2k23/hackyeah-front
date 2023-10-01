@@ -21,9 +21,9 @@ const index = () => {
   );
 
   useEffect(() => {
-    if (!access) {
-      restoreTokens();
-    }
+    // if (!access) {
+    //   restoreTokens();
+    // }
     const checkLocation = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") return;

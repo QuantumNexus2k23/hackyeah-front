@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Dimensions, Image, ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -25,10 +25,11 @@ const details = () => {
     router.back();
   };
 
-  const handleNextPlace = async () => {
+  const handleNextPlace = useCallback(async () => {
+    console.log({ route: routeDetails?.route, id: routeDetails?.id });
     await visitMapPoint(routeDetails?.route, routeDetails?.id);
     router.back();
-  };
+  }, [routeDetails]);
 
   return (
     <View style={{ paddingBottom: insets.bottom }}>

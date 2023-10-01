@@ -32,15 +32,18 @@ const Maps: FC = () => {
   }, []);
 
   const [nextStep, setNextStep] = useState<number>(0);
+  const [currentId, setCurrentId] = useState<number>(0);
 
   useEffect(() => {
     const nextStep = route?.route_points.findIndex(
       ({ visited_by_user }) => !visited_by_user
     );
-    if (nextStep) setNextStep(nextStep);
+    if (nextStep) {
+      setNextStep(nextStep);
+      setCurrentId(route?.route_points[nextStep]?.id as number);
+    }
   }, [route]);
 
-  const [currentId, setCurrentId] = useState<number>(4);
   const coordinates =
     route?.route_points.map(({ coordinate }) => coordinate) ?? [];
 
@@ -64,7 +67,11 @@ const Maps: FC = () => {
         allPointsVisited={!!allPointsVisited}
       >
         <MapView
-          style={{ width: "100%", height: "75%", opacity: allPointsVisited ? 0.4 : 1 }}
+          style={{
+            width: "100%",
+            height: "75%",
+            opacity: allPointsVisited ? 0.4 : 1,
+          }}
           region={getRegionFromCoordinates([
             ...coordinates,
             ...(location ? [location] : []),
