@@ -7,6 +7,7 @@ import { useMapData } from "../../stores/mapData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
 import { MapPoint } from "../../stores/types";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 const PRIMARY_MARKER_COLOR = "#7E484A";
 
@@ -53,7 +54,7 @@ const Maps: FC = () => {
         allPointsVisited={!!allPointsVisited}
       >
         <MapView
-          style={{ width: "100%", height: "75%" }}
+          style={{ width: "100%", height: "75%", opacity: 0.4 }}
           region={getRegionFromCoordinates(coordinates)}
           userInterfaceStyle="light"
         >
@@ -101,6 +102,9 @@ const Maps: FC = () => {
           ))}
         </MapView>
       </MapWrapper>
+      {allPointsVisited && (
+        <ConfettiCannon count={200} origin={{ x: 0, y: 5000 }} />
+      )}
     </View>
   );
 };

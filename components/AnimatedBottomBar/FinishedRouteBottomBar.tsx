@@ -1,8 +1,4 @@
-import {
-  BottomSheetFlatList,
-  BottomSheetModal,
-  BottomSheetView,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useEffect, useRef } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
@@ -74,9 +70,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   description: {
-    marginTop: 12,
-    maxWidth: 272,
-    fontSize: 16,
+    marginTop: 16,
+    maxWidth: 200,
+    fontSize: 18,
+    marginLeft: 8,
     fontWeight: "normal",
   },
   button: {
