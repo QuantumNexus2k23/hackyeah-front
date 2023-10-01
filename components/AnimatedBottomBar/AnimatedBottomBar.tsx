@@ -180,6 +180,8 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: "white",
+    fontWeight: "600",
+    fontSize: 14,
   },
 });
 
