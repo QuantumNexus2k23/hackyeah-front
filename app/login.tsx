@@ -61,7 +61,12 @@ export default function SignIn() {
           ) : (
             <Button
               onPress={handleSubmit(onSubmit)}
-              style={{ backgroundColor: "#7E494A" }}
+              style={{
+                backgroundColor: "#7E494A",
+                borderRadius: 10,
+                paddingVertical: 3,
+                alignSelf: "center",
+              }}
               labelStyle={{ color: "white", width: "80%" }}
             >
               Log In
@@ -78,7 +83,7 @@ export default function SignIn() {
             <Text>New here?</Text>
             <Button
               onPress={() => router.replace("/register")}
-              labelStyle={{ fontWeight: "bold" }}
+              labelStyle={{ fontWeight: "bold", color: "#7E494A" }}
             >
               Sign up
             </Button>

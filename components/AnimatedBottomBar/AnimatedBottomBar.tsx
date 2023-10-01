@@ -90,19 +90,20 @@ const AnimatedBottomBar = ({
             <Text style={styles.pointText}>{pointNumber}</Text>
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, justifyContent: "center" }}>
           {quote && <Text style={styles.quote}>{quote}</Text>}
           {hero && (
             <Image
               style={{
                 borderRadius: 0,
                 zIndex: 100,
-                height: 240,
-                width: 240,
+                height: 200,
+                width: 200,
                 resizeMode: "contain",
                 position: "absolute",
                 bottom: 36,
                 right: -56,
+                transform: [{ scaleX: -1 }],
               }}
               source={{ uri: hero.image }}
             />
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 50,
     borderColor: "#7E484A",
-    borderWidth: 3,
+    borderWidth: 2,
     width: 60,
     height: 60,
   },
@@ -157,15 +158,17 @@ const styles = StyleSheet.create({
     color: "#7E484A",
   },
   description: {
-    fontSize: 16,
+    fontSize: 18,
     maxWidth: 272,
   },
   quote: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 48,
-    marginLeft: 48,
+    fontSize: 18,
+    marginLeft: 2,
+    fontStyle: "italic",
+    color: "#1E1E1E",
+    opacity: 0.8,
+    maxWidth: 270,
+    marginTop: 20,
   },
   button: {
     borderRadius: 8,

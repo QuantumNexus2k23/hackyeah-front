@@ -15,6 +15,7 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
       data={tracks}
       renderItem={({ item }) => (
         <TouchableRipple
+          style={{ marginVertical: 30 }}
           rippleColor="rgba(0, 0, 0, .32)"
           onPress={() => handleOnPress(item.id)}
         >
@@ -22,7 +23,7 @@ const ChooseTrack = ({ tracks }: { tracks: TrackType[] }) => {
         </TouchableRipple>
       )}
       keyExtractor={(item) => `${item.name}${item.id}`}
-    ></FlatList>
+    />
   );
 };
 
