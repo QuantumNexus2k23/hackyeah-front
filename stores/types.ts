@@ -15,7 +15,6 @@ export type MapPoint = {
   coordinate: Coord;
   main_image: string;
   visited_by_user: boolean;
-  comics_url: string;
   paragraphs: Array<Paragraph>;
 };
 
@@ -23,6 +22,7 @@ export type MapRoute = {
   name: string;
   description: string;
   duration: string;
+  comics_url: string;
   hero: Hero;
   route_points: Array<MapPoint>;
   starting_point_title: string;

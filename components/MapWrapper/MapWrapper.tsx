@@ -21,6 +21,7 @@ const MapWrapper = ({
   children,
   name,
   allPointsVisited,
+  comicsUrl,
   ...animatedBottomBarProps
 }: Props) => {
   const handleGoBack = () => {
@@ -35,7 +36,10 @@ const MapWrapper = ({
         <AnimatedBottomBar currentId={currentId} {...animatedBottomBarProps} />
       )}
       {allPointsVisited && (
-        <FinishedRouteBottomBar hero={animatedBottomBarProps.hero} />
+        <FinishedRouteBottomBar
+          hero={animatedBottomBarProps.hero}
+          comicsUrl={comicsUrl}
+        />
       )}
     </View>
   );
