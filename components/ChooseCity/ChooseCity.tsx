@@ -17,15 +17,15 @@ const ChooseCity = ({ cities }: { cities: CitiesType[] }) => {
         style={{ flexDirection: "column", alignItems: "center", height: "90%" }}
       >
         <Image
-          style={{ width: 300, height: 140, marginTop: 20 }}
-          source={require("./assets/logo.png")}
+          style={{ width: 300, height: 140, marginTop: 20, marginRight: 20 }}
+          source={require("../../assets/images/logo.png")}
         />
         <Text
           style={{
             fontWeight: "500",
             fontSize: 30,
             color: "#4F2022",
-            marginBottom: 30,
+            marginVertical: 20,
           }}
         >
           I am in:

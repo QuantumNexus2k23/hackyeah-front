@@ -39,7 +39,10 @@ export default function SignIn() {
           marginBottom: "20%",
         }}
       >
-        <Image source={require("../assets/images/logo.png")} />
+        <Image
+          style={{ width: 300, height: 140, marginTop: 20, marginRight: 20 }}
+          source={require("../assets/images/logo.png")}
+        />
       </View>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <ControlledTextInput
