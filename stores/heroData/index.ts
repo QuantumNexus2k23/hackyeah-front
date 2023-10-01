@@ -1,0 +1,1 @@
+import { useHeroeData } from "./heroeData";
