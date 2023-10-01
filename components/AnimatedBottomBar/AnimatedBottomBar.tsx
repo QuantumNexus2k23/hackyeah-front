@@ -4,12 +4,14 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Hero } from "../../stores/types";
+import CustomAppbar from "../CustomAppbar/CustomAppbar";
 
 export type AnimatedBottomBarProps = {
   title?: string;
   description?: string;
   hero?: Hero;
   pointNumber: number;
+  currentId: number;
 };
 
 const AnimatedBottomBar = ({
@@ -17,10 +19,11 @@ const AnimatedBottomBar = ({
   description,
   hero,
   pointNumber,
+  currentId,
 }: AnimatedBottomBarProps) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const handleViewDetails = () => {
-    router.push("/details");
+  const handleViewDetails = (id: number) => {
+    router.push(`/details/${id}`);
   };
   const [isExpanded, setExpanded] = useState(false);
 
@@ -93,7 +96,7 @@ const AnimatedBottomBar = ({
           <Button
             labelStyle={styles.buttonLabel}
             style={[styles.button, { marginTop: isExpanded ? 0 : 64 }]}
-            onPress={handleViewDetails}
+            onPress={() => handleViewDetails(currentId)}
           >
             I am here!
           </Button>
