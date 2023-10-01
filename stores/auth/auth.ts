@@ -64,7 +64,10 @@ export const useAuth = create<AuthStore>((set) => ({
     const access = await AsyncStorage.getItem("access");
     const refresh = await AsyncStorage.getItem("refresh");
 
-    if (!refresh) return;
+    if (!refresh) {
+      set({ loading: false });
+      return;
+    }
 
     set({ loading: true });
     const verifiedAccess = await verifyAccessToken(access);

@@ -4,23 +4,28 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Hero } from "../../stores/types";
-import CustomAppbar from "../CustomAppbar/CustomAppbar";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export type AnimatedBottomBarProps = {
+  id?: number;
   title?: string;
   description?: string;
   hero?: Hero;
+  quote?: string;
   pointNumber: number;
   currentId: number;
 };
 
 const AnimatedBottomBar = ({
+  id,
   title,
   description,
-  hero,
   pointNumber,
+  hero,
+  quote,
   currentId,
 }: AnimatedBottomBarProps) => {
+  const insets = useSafeAreaInsets();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const handleViewDetails = (id: number) => {
     router.push(`/details/${id}`);
@@ -55,10 +60,17 @@ const AnimatedBottomBar = ({
       ref={bottomSheetModalRef}
       snapPoints={snapPoints}
       onChange={handleSheetChanges}
-      style={styles.modal}
+      style={[styles.modal]}
       enablePanDownToClose={false}
     >
-      <Pressable onPress={handlePresentModalPress}>
+      <Pressable
+        style={{
+          height: "100%",
+          display: "flex",
+          paddingBottom: insets.bottom,
+        }}
+        onPress={handlePresentModalPress}
+      >
         <View style={styles.container}>
           <View style={styles.waypointNumber}>
             <View style={styles.row}>
@@ -69,7 +81,7 @@ const AnimatedBottomBar = ({
                 numberOfLines={isExpanded ? undefined : 1}
                 style={styles.description}
               >
-                {description} {description} {description} {description}
+                {description}
               </Text>
             </View>
           </View>
@@ -77,22 +89,23 @@ const AnimatedBottomBar = ({
             <Text style={styles.pointText}>{pointNumber}</Text>
           </View>
         </View>
-        <View>
-          {hero ? (
+        <View style={{ flex: 1 }}>
+          {quote && <Text style={styles.quote}>{quote}</Text>}
+          {hero && (
             <Image
               style={{
                 borderRadius: 0,
                 zIndex: 100,
-                height: 330,
-                width: 330,
+                height: 240,
+                width: 240,
                 resizeMode: "contain",
                 position: "absolute",
-                bottom: -11,
-                right: -60,
+                bottom: 36,
+                right: -56,
               }}
               source={{ uri: hero.image }}
             />
-          ) : null}
+          )}
           <Button
             labelStyle={styles.buttonLabel}
             style={[styles.button, { marginTop: isExpanded ? 0 : 64 }]}
@@ -146,10 +159,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     maxWidth: 272,
   },
+  quote: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 64,
+    marginLeft: 48,
+  },
   button: {
     borderRadius: 8,
     backgroundColor: "#7E484A",
     padding: 4,
+    position: "absolute",
+    width: "100%",
+    bottom: 0,
   },
   buttonLabel: {
     color: "white",

@@ -32,6 +32,9 @@ const Maps: FC = () => {
   return (
     <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <MapWrapper
+        id={route?.route_points[nextStep].id}
+        hero={route?.hero}
+        quote="This is where it all started!"
         title={route?.route_points[nextStep].name}
         description={route?.route_points[nextStep].short_description}
         pointNumber={nextStep + 1}

@@ -1,7 +1,10 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
+import {
+  BackendCredentialsData,
+  TokensData,
+} from "../stores/auth/types";
 import { CitiesType, MapPoint, MapRoute, TrackType } from "../stores/types";
-import { BackendCredentialsData, TokensData } from "../stores/auth/types";
 
 class API {
   async login(payload: BackendCredentialsData): Promise<TokensData> {

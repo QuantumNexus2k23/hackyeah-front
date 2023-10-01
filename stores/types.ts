@@ -16,18 +16,10 @@ export type MapPoint = {
   paragraphs: Array<Paragraph>;
 };
 
-export type Paragraph = {
-  id: string;
-  order: number;
-  text: string;
-  image: string;
-  image_description: string;
-  route_point: number;
-};
-
 export type MapRoute = {
   name: string;
   short_description: string;
+  hero: Hero;
   route_points: Array<MapPoint>;
 };
 
@@ -71,4 +63,28 @@ export type TrackType = {
   duration: string;
   route_type: string;
   hero: Hero;
+};
+
+export type Paragraph = {
+  id: number;
+  order: number;
+  text: string;
+  image: string;
+  image_description: string;
+  route_point: number;
+};
+
+export type RoutePointData = {
+  id: number;
+  name: string;
+  short_description: string;
+  coordinate: Coord;
+  main_image: string;
+  visited_by_user: boolean;
+  paragraphs: Array<Paragraph>;
+};
+
+export type RoutePointsDataStore = {
+  routePointData: RoutePointData | null;
+  fetchRoutePointsData: (id: number) => void;
 };
