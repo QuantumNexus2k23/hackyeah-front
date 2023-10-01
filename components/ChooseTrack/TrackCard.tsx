@@ -66,8 +66,8 @@ const TrackCard = ({
           style={{
             borderRadius: 0,
             zIndex: 100,
-            height: 330,
-            width: 330,
+            height: 280,
+            width: 280,
             resizeMode: "contain",
             position: "absolute",
             bottom: -11,
