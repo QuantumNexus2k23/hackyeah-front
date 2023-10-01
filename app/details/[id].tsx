@@ -50,23 +50,19 @@ const details = () => {
           {routeDetails?.short_description}
         </Text>
       </View>
-      {routeDetails?.paragraphs.map((item) => {
-        return (
-          <>
-            <Text key={item.id} style={styles.textParagraph}>
-              {item.text}
-            </Text>
-            <Image
-              source={{ uri: `${item.image}` }}
-              style={styles.image}
-              resizeMode="cover"
-            />
-            <Text style={styles.imageDescription}>
-              {item.image_description}
-            </Text>
-          </>
-        );
-      })}
+      {routeDetails?.paragraphs.map((item) => (
+        <>
+          <Text key={item.id} style={styles.textParagraph}>
+            {item.text}
+          </Text>
+          <Image
+            source={{ uri: item.image }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+          <Text style={styles.imageDescription}>{item.image_description}</Text>
+        </>
+      ))}
       <Button style={styles.nextPlaceButton} onPress={handleNextPlace}>
         <Text style={styles.buttonText}>Next place</Text>
       </Button>
