@@ -3,13 +3,17 @@ import { Appbar, Button, Card, Text } from "react-native-paper";
 import { router } from "expo-router";
 
 const heroes = () => {
+  const handleShowHeroeBadge = () => {
+    router.push("/badge");
+  };
+
   return (
     <View>
       <Appbar.Header>
         <Appbar.BackAction onPress={() => router.back()} />
         <Appbar.Content title="Heroes" titleStyle={{ fontWeight: "bold" }} />
       </Appbar.Header>
-      <Card>
+      <Card onPress={handleShowHeroeBadge}>
         <Card.Title title="Card Title" />
         <Card.Content>
           <Text variant="titleLarge">Card subtitle</Text>
