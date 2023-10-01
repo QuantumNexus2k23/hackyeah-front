@@ -25,7 +25,7 @@ class API {
 
   async refreshToken(refresh: string): Promise<{ access: string }> {
     const { data } = await this.request<TokensData>({
-      url: "accounts/jwt/refresh/",
+      url: "/accounts/jwt/refresh/",
       method: "POST",
       payload: { refresh },
     });
@@ -35,7 +35,7 @@ class API {
 
   async verifyToken(token: string): Promise<void> {
     await this.request<void>({
-      url: "accounts/jwt/refresh/",
+      url: "/accounts/jwt/verify/",
       method: "POST",
       payload: { token },
     });
@@ -43,7 +43,7 @@ class API {
 
   async getCities(): Promise<Array<CitiesType>> {
     const { data } = await this.request<Array<CitiesType>>({
-      url: `/cities`,
+      url: `/cities/`,
       method: "GET",
     });
 
@@ -52,7 +52,7 @@ class API {
 
   async getRoutes(): Promise<Array<MapRoute>> {
     const { data } = await this.request<Array<MapRoute>>({
-      url: `/routes`,
+      url: `/routes/`,
       method: "GET",
     });
 
@@ -69,7 +69,7 @@ class API {
   }
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({
-      url: `/routes/${id}`,
+      url: `/routes/${id}/`,
       method: "GET",
     });
 
@@ -78,7 +78,7 @@ class API {
 
   async getMapPoint(id: string): Promise<MapPoint> {
     const { data } = await this.request<MapPoint>({
-      url: `/route-points/${id}`,
+      url: `/route-points/${id}/`,
       method: "GET",
     });
 
@@ -110,7 +110,11 @@ class API {
       url,
       method,
       headers: {
-        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+        ...(accessToken
+          ? {
+              Authorization: `Bearer ${accessToken}`,
+            }
+          : {}),
         ...headers,
       },
       data: payload,

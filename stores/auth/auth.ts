@@ -8,7 +8,7 @@ export const useAuth = create<AuthStore>((set) => ({
   access: null,
   refresh: null,
   email: null,
-  loading: true,
+  loading: false,
 
   setLoadingOff: () => set({ loading: false }),
   setLoadingOn: () => set({ loading: true }),
