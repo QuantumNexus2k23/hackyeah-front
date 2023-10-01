@@ -31,43 +31,32 @@ const details = () => {
   };
 
   return (
-    <ScrollView style={{ paddingBottom: insets.bottom }}>
-      <View>
-        <CustomAppbar
-          title={routeDetails?.name || "Map point"}
-          onGoBack={handleOnPress}
-        />
-      </View>
-      <View>
-        <Image
-          source={{
-            uri: `${routeDetails?.main_image}`,
-          }}
-          style={styles.image}
-          resizeMode="cover"
-        />
-        <Text style={styles.shortDescription}>
-          {routeDetails?.short_description}
-        </Text>
-      </View>
-      {routeDetails?.paragraphs.map((item) => (
-        <View key={item.id}>
-          <Text style={styles.textParagraph}>{item.text}</Text>
-          <Image
-            source={{ uri: item.image }}
-            style={styles.image}
-            resizeMode="cover"
-          />
-          <Text style={styles.imageDescription}>{item.image_description}</Text>
-        </View>
-      ))}
-      <Button
-        style={styles.nextPlaceButton}
-        onPress={handleNextPlace}
-      >
+    <View style={{ paddingBottom: insets.bottom }}>
+      <CustomAppbar
+        title={routeDetails?.name || "Map point"}
+        onGoBack={handleOnPress}
+      />
+      <ScrollView style={{ height: "80%" }}>
+        {routeDetails?.paragraphs.map((item) => (
+          <View key={item.id}>
+            <Text style={styles.textParagraph}>{item.text}</Text>
+            {item.image && (
+              <Image
+                source={{ uri: item.image }}
+                style={styles.image}
+                resizeMode="cover"
+              />
+            )}
+            <Text style={styles.imageDescription}>
+              {item.image_description}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
+      <Button style={styles.nextPlaceButton} onPress={handleNextPlace}>
         <Text style={styles.buttonText}>Next place</Text>
       </Button>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -84,6 +73,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 30,
+    borderRadius: 10,
   },
   buttonText: {
     fontSize: 16,
@@ -100,7 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   imageDescription: {
-    padding: 10,
+    padding: 4,
     fontSize: 14,
     fontStyle: "italic",
   },
