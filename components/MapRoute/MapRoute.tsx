@@ -11,11 +11,12 @@ const MapRoute: FC<MapRouteProps> = ({
   initLocation,
   imageURL,
 }) => {
-  const [location, setLocation] = useState<Coord>(initLocation);
+  const [location, setLocation] = useState<Coord | null>(initLocation);
 
   useEffect(() => {
     const fetchLocation = async () => {
-      setLocation(location);
+      const currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation.coords);
     };
     const interval = setInterval(async () => {
       fetchLocation();
@@ -27,39 +28,42 @@ const MapRoute: FC<MapRouteProps> = ({
     };
   }, []);
 
-  return location ? (
+  return (
     <>
       <MapViewDirections
         apikey={process.env.EXPO_PUBLIC_GOOGLE_MAPS_TOKEN || ""}
-        origin={location}
+        origin={location || coordinates[0]}
         destination={coordinates[coordinates.length - 1]}
         strokeWidth={4}
+        mode="WALKING"
         strokeColor="#7E494A"
         waypoints={coordinates.slice(0, -1)}
       />
-      <Marker coordinate={location}>
-        <View
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 48,
-            width: 48,
-            backgroundColor: "#FFFFFF",
-            borderRadius: 2137,
-            borderColor: "#7E484A",
-            borderWidth: 2,
-            overflow: "hidden",
-          }}
-        >
-          <Image
-            source={{ uri: imageURL }}
-            style={{ width: "100%", height: "100%" }}
-          />
-        </View>
-      </Marker>
+      {location ? (
+        <Marker coordinate={location}>
+          <View
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: 48,
+              width: 48,
+              backgroundColor: "#FFFFFF",
+              borderRadius: 2137,
+              borderColor: "#7E484A",
+              borderWidth: 2,
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              source={{ uri: imageURL }}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </View>
+        </Marker>
+      ) : null}
     </>
-  ) : null;
+  );
 };
 
 export default MapRoute;

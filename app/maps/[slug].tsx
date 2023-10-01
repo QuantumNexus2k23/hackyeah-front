@@ -112,7 +112,7 @@ const Maps: FC = () => {
               </View>
             </Marker>
           ))}
-          {location && route?.route_points?.length ? (
+          {route?.route_points?.length ? (
             <MapRoute
               initLocation={location}
               coordinates={coordinates}
