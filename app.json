@@ -16,7 +16,7 @@
         }
       ]
     ],
-    "name": "Paneuropa Guide",
+    "name": "Paneuropa Tours",
     "slug": "hackyeah-front",
     "extra": {
       "router": {
@@ -28,7 +28,7 @@
     },
     "android": {
       "package": "com.paneuropa.guide",
-      "icon": "./assets/images/logo.png",
+      "icon": "./assets/images/icon.png",
       "config": {
         "googleMaps": {
           "apiKey": "api-key"
