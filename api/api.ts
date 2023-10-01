@@ -1,7 +1,12 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
 import { CredentialsData, TokensData } from "../stores/auth/types";
-import { CitiesType, MapRoute, TrackType } from "../stores/types";
+import {
+  CitiesType,
+  MapRoute,
+  RoutePointData,
+  TrackType,
+} from "../stores/types";
 
 class API {
   async login(payload: CredentialsData): Promise<TokensData> {
@@ -59,6 +64,15 @@ class API {
   async getMapData(id: string): Promise<MapRoute> {
     const { data } = await this.request<MapRoute>({
       url: `/routes/${id}`,
+      method: "GET",
+    });
+
+    return data;
+  }
+
+  async getRoutePointsData(id: number): Promise<RoutePointData> {
+    const { data } = await this.request<RoutePointData>({
+      url: `/route-points/${id}`,
       method: "GET",
     });
 
