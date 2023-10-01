@@ -59,6 +59,11 @@ export type HeroesDataStore = {
   fetchHeroes: () => Promise<void>;
 };
 
+export type HeroeDataStore = {
+  heroe: Hero | null;
+  fetchHeroe: (id: number) => Promise<void>;
+};
+
 export type CitiesType = { id: number; name: string };
 
 export type Hero = {

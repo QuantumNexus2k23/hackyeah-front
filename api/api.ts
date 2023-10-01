@@ -109,6 +109,15 @@ class API {
     return data;
   }
 
+  async getHeroById(id: number): Promise<Hero> {
+    const { data } = await this.request<Hero>({
+      url: `/heroes/${id}`,
+      method: "GET",
+    });
+
+    return data;
+  }
+
   async request<T>({
     url,
     method,
