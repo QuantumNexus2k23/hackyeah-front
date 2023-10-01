@@ -11,11 +11,16 @@ export type AuthStore = {
   login: (credentials: CredentialsData) => Promise<void>;
   register: (credentials: CredentialsData) => Promise<void>;
   refreshToken: (token: string) => Promise<void>;
-  verifyToken: (token: string) => Promise<void>;
+  restoreTokens: () => Promise<void>;
 };
 
 export type CredentialsData = {
   email: string;
+  password: string;
+};
+
+export type BackendCredentialsData = {
+  username: string;
   password: string;
 };
 

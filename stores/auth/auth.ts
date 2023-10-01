@@ -1,36 +1,84 @@
 import { create } from "zustand";
-import { AuthStore, CredentialsData, TokensData } from "./types";
+import { AuthStore, CredentialsData } from "./types";
 import API from "../../api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { verifyAccessToken } from "./utils";
 
 export const useAuth = create<AuthStore>((set) => ({
   access: null,
   refresh: null,
   email: null,
-  loading: false,
+  loading: true,
 
   setLoadingOff: () => set({ loading: false }),
   setLoadingOn: () => set({ loading: true }),
 
   login: async (credentials: CredentialsData) => {
     set({ loading: true });
-    const tokens = await API.login(credentials);
-    set({ ...tokens, loading: false });
+    try {
+      const tokens = await API.login({
+        username: credentials.email,
+        password: credentials.password,
+      });
+      AsyncStorage.setItem("access", tokens.access);
+      AsyncStorage.setItem("refresh", tokens.refresh);
+      set({ ...tokens });
+    } finally {
+      set({ loading: false });
+    }
   },
 
   register: async (credentials: CredentialsData) => {
     set({ loading: true });
-    await API.register(credentials);
-    const tokens = await API.login(credentials);
-    set({ ...tokens, loading: false });
+    try {
+      await API.register({
+        username: credentials.email,
+        password: credentials.password,
+      });
+      const tokens = await API.login({
+        username: credentials.email,
+        password: credentials.password,
+      });
+      AsyncStorage.setItem("access", tokens.access);
+      AsyncStorage.setItem("refresh", tokens.refresh);
+      set({ ...tokens });
+    } finally {
+      set({ loading: false });
+    }
   },
 
   refreshToken: async (refresh: string) => {
-    const tokens = await API.refreshToken(refresh);
-    set({ ...tokens });
+    set({ loading: true });
+    try {
+      const { access } = await API.refreshToken(refresh);
+      AsyncStorage.setItem("access", access);
+      set({ access });
+    } catch {
+      set({ access: null, refresh: null });
+    } finally {
+      set({ loading: false });
+    }
   },
 
-  verifyToken: async (refresh: string) => {
-    const tokens = await API.refreshToken(refresh);
-    set({ ...tokens });
+  restoreTokens: async () => {
+    const access = await AsyncStorage.getItem("access");
+    const refresh = await AsyncStorage.getItem("refresh");
+
+    if (!refresh) return;
+
+    set({ loading: true });
+    const verifiedAccess = await verifyAccessToken(access);
+    if (verifiedAccess) {
+      set({ access: verifiedAccess, refresh, loading: false });
+      return;
+    }
+
+    try {
+      const { access } = await API.refreshToken(refresh);
+      AsyncStorage.setItem("access", access);
+      set({ access, refresh, loading: false });
+    } catch {
+      set({ loading: false });
+    }
   },
 }));

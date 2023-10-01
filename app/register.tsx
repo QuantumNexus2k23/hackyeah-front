@@ -1,15 +1,24 @@
 import { router } from "expo-router";
-import { View } from "react-native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 
 import { useAuth } from "../stores/auth";
 import { useForm } from "react-hook-form";
 import { RegisterData } from "../stores/auth/types";
 import { ControlledTextInput } from "../components/ControlledTextInput";
 import { Button } from "../components/Button";
+import { useEffect } from "react";
 
 export default function Register() {
-  const register = useAuth((state) => state.register);
+  const [access, register, loading] = useAuth((state) => [
+    state.access,
+    state.register,
+    state.loading,
+  ]);
   const { control, handleSubmit, setError } = useForm<RegisterData>();
+
+  useEffect(() => {
+    if (access) router.replace("/");
+  }, [access]);
 
   const onSubmit = async ({ email, password, re_password }: RegisterData) => {
     if (password !== re_password) {
@@ -27,31 +36,68 @@ export default function Register() {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ControlledTextInput
-        control={control}
-        name="email"
-        label="E-mail"
-        placeholder="Enter e-mail"
-      />
-      <ControlledTextInput
-        secure
-        control={control}
-        name="password"
-        label="Password"
-        placeholder="Enter password"
-      />
-      <ControlledTextInput
-        secure
-        control={control}
-        name="re_password"
-        label="Retype password"
-        placeholder="Enter password"
-      />
-      <Button onPress={handleSubmit(onSubmit)}>Sign up</Button>
-      <Button onPress={() => router.replace("/login")}>
-        Przejdź do logowania
-      </Button>
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          height: "30%",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          marginBottom: "10%",
+        }}
+      >
+        <Image source={require("../assets/images/logo.png")} />
+      </View>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <ControlledTextInput
+          control={control}
+          name="email"
+          label="E-mail"
+          placeholder="Enter e-mail"
+        />
+        <ControlledTextInput
+          secure
+          control={control}
+          name="password"
+          label="Password"
+          placeholder="Enter password"
+        />
+        <ControlledTextInput
+          secure
+          control={control}
+          name="re_password"
+          label="Retype password"
+          placeholder="Enter password"
+        />
+        <View style={{ marginTop: 40 }}>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <Button
+              onPress={handleSubmit(onSubmit)}
+              style={{ backgroundColor: "#7E494A" }}
+              labelStyle={{ color: "white", width: "80%" }}
+            >
+              Sign up
+            </Button>
+          )}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 10,
+            }}
+          >
+            <Text>Already have an account?</Text>
+            <Button
+              onPress={() => router.replace("/login")}
+              labelStyle={{ fontWeight: "bold" }}
+            >
+              Log in
+            </Button>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
