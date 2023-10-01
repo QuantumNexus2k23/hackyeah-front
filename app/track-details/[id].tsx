@@ -5,9 +5,9 @@ import Place from "../../assets/svg/place.svg";
 import History from "../../assets/svg/history.svg";
 import Timelapse from "../../assets/svg/timelapse.svg";
 import { useEffect } from "react";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useMapData } from "../../stores/mapData";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 
 const chooseTrack = () => {
   const insets = useSafeAreaInsets();
@@ -16,6 +16,8 @@ const chooseTrack = () => {
   useEffect(() => {
     fetchMapData(id as string);
   }, []);
+
+  const redirectToMap = () => router.push(`maps/${id}`);
 
   return route ? (
     <View
@@ -59,7 +61,8 @@ const chooseTrack = () => {
           </Text>
         </View>
       </View>
-      <Text style={{ paddingTop: 20 }}>{route.description}</Text>
+      <Text style={{ paddingTop: 20, fontSize: 20 }}>{route.description}</Text>
+      <Button onPress={redirectToMap}>Start the tour</Button>
     </View>
   ) : null;
 };
